@@ -1,0 +1,2603 @@
+// ----- Tag ----- //
+html,body{
+    height: 99vh;
+    width: 100%; 
+    margin: 0;
+    padding: 0;
+    font-family: Roboto-Regular,Arial;
+}
+ul{
+    padding-left: 0px;
+    list-style-type: none;
+}
+//ขณะ focus ไม่ให้มี box shadow
+.focus-noBoxShadow{
+    &:focus{
+        box-shadow: 0 0 0px !important
+    }
+}
+.btn{
+    @extend .focus-noBoxShadow;
+    height: 32px;
+}
+input:focus,textarea:focus{
+    border: 1.5px solid #2e9df0;
+    @extend .focus-noBoxShadow;
+}
+select{
+    border: 1px solid #ced4da !important;
+    @extend .focus-noBoxShadow;
+    option{
+        z-index: 10;
+    }
+}
+.form-control-sm{
+    font-size:14px;
+}
+
+// ----- PAGE :: Login Page ----- //
+#login-box{
+    height: 100vh; 
+    align-items: center;
+    background-image: linear-gradient(to right, #141e30 , #243b55);
+    display: flex; 
+    justify-content: center; 
+}
+#form-style {
+    width: 370px; 
+    margin-top: 30px;
+    padding: 25px;
+    color: white;
+    background: rgba(226, 226, 226, 0.3);
+    border-radius: 5px;
+}
+.logo{
+    width: 315px;
+    height: 96px;
+    margin: auto; 
+    display: block; 
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+// ----- Menu Bar ----- //
+.navbar a{
+    font-size: 14px;
+    color: #222222;
+}
+.navbar a:hover{
+    color:#2e9df0;
+    text-decoration: none;
+} 
+//สำหรับ mobile
+@media(max-width: 450px){
+    #dropdown-username{
+        display: none;
+    }
+}
+
+// ----- Body ----- //
+//1.ทั้งหน้าเว็บ - menu bar
+.wrapper_main{
+    height: calc(100% - 57px);
+}
+/* -----header ของ body----- */
+//1.header สูง 64 [Template,Process,Startprocess]
+.content-head{
+    height: 64px;
+    padding: 0 32px;
+}
+//2.header สูง 64 แบบมีขอบล่าง [CreateTem,EditTem,InTem]
+.head-title-h64{
+    @extend .content-head;
+    border-bottom:1px solid #e1ebef;
+}
+//3.header สูง 90 [Inprocess]
+.head-title-h90{
+    @extend .head-title-h64;
+    height: 90px;
+    padding: 16px 48px 16px 32px;
+}
+// header สำหรับหน้า inprocess 
+.content-head-inprocess{
+    height: 64px;
+    padding: 0px;
+}
+/* ----- Body Part ----- */
+/*1. เนื้อหาที่ มีหัวข้ออันเดียวเท่านั้น 
+[Template, Process]*/
+.content-body-OnlyContentHead{
+    padding: 0 32px;
+    height: calc(100% - 68px);
+    overflow-y: scroll;
+    @media (max-width: 767.98px) { 
+        padding: 0;
+    }
+}
+/*1.1 เนื้อหาที่ มีหัวข้ออันเดียวเท่านั้น 
+[Start Process]*/
+.content-body-OnlyContentHead-startProcess{
+    @extend .content-body-OnlyContentHead;
+    @media (max-width: 767.98px) { 
+        padding: 0 32px;
+    }
+}
+.createContentBox{
+    padding: 0;
+    height: calc(100% - 100px);
+}
+/* 2. เนื้อหาที่มี 2หัวข้อ อันนึงคือ headtitle สูง64 กับ header สูง64 
+[CreateTem, EditTem, InTem]*/
+.content-body-headTitle64{
+    padding: 0 32px;
+    height: calc(100% - 65px);
+    @media(max-width: 490px){
+        padding: 0 8px;
+    }
+}
+.content-body-headTitle64Load{
+    @extend .content-body-headTitle64;
+    height: calc(100% - 22px);
+}
+// 3. [InProcess]
+.content-body-headTitle90{
+    padding: 0 32px;
+    height: calc(100% - 91px);
+}
+//4.
+.content-body-OnlyContentHead-webSetting{
+    padding: 0 32px;
+    height: calc(100% - 64px);
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+
+// ----- PAGE :: Template ----- //
+//สำหรับ template item list
+.template{
+    border: 1px solid #e1ebef;
+    padding: 10px;
+    .template-text-box{
+        margin: 5px 8px 0;
+    }
+    li{
+        padding: 0 12px;
+        height: 80px;
+        border-bottom: 1px solid #e1ebef;
+        position: relative;
+        overflow: hidden;
+        &:last-child{
+            border-bottom:0;
+        }
+        // animate ของชุดปุ่มด้านหลัง
+        .template-btn-set{
+            position: absolute;
+            right: -220px;
+            transition: 0.2s;
+        }
+        &:hover{
+            cursor: pointer;
+            background: #3aaaff17;
+            .template-text-box h3{
+                color: #2e9df0 !important;
+            }
+            .template-btn-set{
+                transition: 0.2s;
+                right: 10px;             
+            }
+        }
+    }
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+// ----- PAGE :: Create Template ----- //
+#LeftSide-List,#RightSide-Detail{
+    display: none;
+}
+//หัวข้อ
+.headerMobile-point{
+    display: none;
+}
+//tab
+@media(max-width: 490px){
+    .tabHead-CreateTem{
+        display: none;
+    }
+    #RightSideBox-Detail{
+        padding:16px 10px 0 10px;
+    }
+    .headerMobile-point{
+        display: inline;
+    }
+    .headerMobile-text{
+        display: none
+    }
+
+}
+@media(max-width: 1022px){
+    #LeftSide-List{
+        display: block;
+    }
+    #RightSideBox-Detail{
+        display: none;
+    }
+}
+
+//title ของ template ที่จะสร้าง
+.content-body-headTitle64 .tab-content,.content-body-headTitle64 .tab-pane{
+    height: 100%;
+}
+//condition
+.box-condition{
+    display: none;
+    li{
+    @extend .box-normal;
+    margin: 8px 0 8px 50px;
+    padding: 8px 0px 8px 0;
+    border-top: 1px solid #e1ebef;
+    border-bottom: 1px solid #e1ebef;
+    position: relative;
+    .conditionTag{
+        font-size: 11px;
+        color: #959595;
+        background: #f5f5f5;
+        border: 1px solid #e8e8e8;
+        border-radius: 11px;
+        margin-right: 6px;
+        padding: 2px 6px;
+        position: absolute;
+        right: 100%;
+        }
+    }
+}
+.delete-condition{
+ cursor: pointer;
+}
+// สำหรับ sectionเท่านั้น
+.box-section{
+    border: 1px solid #e1ebef;
+    .box-sectionHead{
+        background: #f5f5f5;
+        height: 40px;
+        padding: 0 12px;
+        font-size: 16px;
+        #section-btn-delete{
+            display: none;
+        }
+        &:hover{
+            #section-btn-delete{
+                display: block;
+            }
+        }
+    }
+    .box-sectionBody{
+        padding: 0 12px; 
+        font-size: 12px;
+        .sectionBody-head{
+            display: flex; 
+            padding: 0 18px;
+            .sectionBody-headleft{
+                margin-right: 8px; 
+                flex: 2; 
+                margin-top: 6px;
+            }
+            .sectionBody-headright{
+                margin-right: 8px; 
+                flex:1;
+                margin-top: 6px;
+            }
+        }
+        .sectionBody-bodyList{
+            display: flex; 
+            margin-bottom:8px;
+            padding-right:80px;
+            position: relative;
+            .delete-field{
+                position: absolute; 
+                right:0px;
+                padding: 6px 10px;
+                display: none;
+            }
+            &:hover{
+                .delete-field{
+                    display: block;
+                }
+            }
+            .icon-move{
+                color: #a3a3a3; 
+                margin-right: 12px; 
+                align-self: center;
+            }
+        }
+    }
+}
+
+
+//Data form{
+#FormControlSelectDropdown{
+    &:disabled{
+        width: 105px;
+    }
+} 
+//ปุ่มฟันเฟือง
+.btn-setting{
+    @extend .focus-noBoxShadow;
+    color: #959595;
+    font-size:14px;
+    border: 0;
+    &:hover{
+        color: #2e9df0;
+        border: 0;
+    }
+    &:active{
+        color: #2e9df0;
+        background: transparent;
+    }
+}
+//ปุ่มเพิ่ม section
+.new-section{
+    color: #959595;
+    border: 1px solid #e1ebef; 
+    padding: 8px 12px 8px 12px;
+    font-size:14px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    &:hover{
+        color: #2e9df0;
+        border: 1px solid #2e9df0; 
+    }
+}
+
+// active tab bootstrap
+.nav-pills .nav-item .active{
+    color: #2e9df0;
+    border: 1px solid #2e9df0; 
+}
+// *** Tab หน้า Create Tem
+/* Change background color of buttons on hover */
+.tab {
+    border: 1px solid #e1ebef;
+}
+  /* Style the buttons inside the tab */
+.tab-button{
+    display: block;
+    background-color: inherit;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    padding: 0px 12px;
+    color: #959595;
+    border-bottom:1px solid #e1ebef; 
+    border-left:5px solid #e1ebef; 
+    height: 64px;
+    display: flex;
+}
+.tab-button.active {
+    border:1px solid #2e9df0; 
+    border-left:5px solid #2e9df0;
+}
+.tab-div{
+    @extend .box-one;
+    height: 64px;
+    font-size: 14px;
+    padding: 10px 12px 10px 34px;
+    color: #959595;
+    border-bottom:1px solid #e1ebef; 
+    border-left:5px solid #e1ebef; 
+}
+//กล่องdeadline กับ duedate
+.date-box{
+    margin-top:10px; 
+    display: flex;
+    input{
+        width: 54px;
+        margin-right: 12px
+    }
+}
+.icon-small-size-member{
+    @extend .icon-small-size;
+    color:#959595; 
+    background: #ccc; 
+    margin-right: 8px;
+}
+//properties
+.properties-box{
+    margin-bottom: 8px;
+    label{
+        color: #222;
+        font-size: 14px;
+    }
+    .properties-content{
+        display: flex;
+        span{
+            color:#222; 
+            align-self: center;
+            font-size: 12px;
+        }
+    }
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+// ----- PAGE :: Process ----- //
+//Mobile size ส่วนhead
+@media (min-width: 767.98px) and (max-width: 824px){
+    #Btnstartprocess-text{
+        display: none;
+    }
+}
+//ส่วนของกล่องวันที่ด้านหลัง
+@media(max-width: 529px){
+    .dateBox-process{
+        display: none;
+    }
+}
+.process{
+    @extend .template;
+    li{
+        &:hover{
+            background: transparent;
+        }
+    }
+    .process-text-box{
+        @extend .template-text-box;
+        width: 50%;
+    }
+}
+.process-title{
+    margin:24px 0 8px 16px;
+    font-size:14px;
+}
+.process-groupHead{
+    height: 50px;
+    padding-left: 16px;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+}
+// แถบสี progress
+// 1. เสร็จแล้ว
+.finish-process{
+    border: 1px solid#4abc3b;
+    background-color: #4abc3b;
+}
+// 2. อันที่ต้องทำถัดไป
+.next-process{
+    border: 1px solid#d8d8d8;
+    background-color: #d8d8d8;
+}
+// 3. อันที่ยังไม่ได้ทำ
+.unfinish-process{
+    border: 1px solid#d8d8d8;
+    background-color: #FFF
+}
+// 4. อันที่เกินเวลาส่ง
+.late-process{
+    // border: 1px solid#F75F5F;
+    background-color:#F75F5F;
+}
+// กล่องเงื่อนไข
+//ค่าเริ่มต้น
+#boxA{
+    display: block;
+}
+#boxB,#boxC,#boxD,#boxE{
+    display: none;
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+
+// ----- PAGE :: In Process ----- //
+//mobile size{
+#btn-commentSide,#btn-OpenComment{
+    margin-left: 12px;
+    display: none;
+}
+@media(max-width: 1027px){
+    .tab-inprocess{
+        display: none;
+    }
+}
+@media(max-width: 1022px){
+    #btn-commentSide{
+        display: inline;
+    }
+    .tab-inprocess{
+        display: inline;
+    }
+    #LeftSide-item{
+        display: block;
+    }
+    #RightSide-comment{
+        display: none;
+    }
+}
+@media(max-width: 582px){
+    .tab-inprocess{
+        display: none;
+    }
+}
+@media(max-width: 390px){
+    #btn-calender,#dueCalender{
+        margin: 0;
+    }
+    #btn-commentSide{
+        margin: 0 0 0 5px;
+    }
+}
+//assign task
+.modalTask-listUser{
+    height: 250px; 
+    overflow-y: auto; 
+    border:1px solid #ced4da; 
+    margin-top:6px;
+    padding:8px;
+    .user-list{
+        margin-bottom:12px;
+        height: 24px;
+        border-radius: 8px;
+        display: flex;
+        &:hover{
+            background: #eeeeee;
+        } 
+        .text-nameUser{
+            margin-left: 5px;
+            font-size:12px;
+            align-self: center;
+        }
+    }
+}
+//body-process
+.content-body-bodyTitle90{
+    height: calc(100% - 64px);
+}
+.Assign-box{
+    display: none;
+    font-size:12px;
+    span{
+        color: #2e9df0;
+        &:hover{
+            color: #56b5fd;
+        }
+    }
+    
+}
+.inprocess-list-normal{
+    @extend .tab-button;
+    &:hover{
+        h4{
+            color: #2e9df0 !important;
+        }
+        .Assign-box{
+            display: inline;
+        }
+    }
+}
+.inprocess-list-complete{
+    @extend .inprocess-list-normal;
+    border-left:5px solid #4abc3b; 
+
+}.inprocess-list-upcoming{
+    @extend .inprocess-list-normal;
+    background: #f8f8f9;
+    .text-left{
+        color: #cacaca;
+    }
+    &:hover{
+        .text-left{
+            h4{
+                color: #cacaca !important;
+            }
+        }
+    }
+}
+//กล่องของหน้า process ซ้ายจะกว้างกว่าขวา
+.box-inprocess{
+    display: flex;
+    .box-inprocess-left{
+        padding-right: 25px;
+        flex:1.1;
+        header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+    .box-inprocess-right{
+        flex:1;  
+        header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}
+.task-head{
+    &:hover{
+        span:first-child{
+            cursor: pointer;
+            color: #2e9df0;
+        }
+    }
+}
+.task-body{
+    margin: 12px 0;
+    padding: 0 16px 0 12px;
+    border-left: 2px solid #e1ebef;
+    .person-comment{
+        display: flex;
+        margin-bottom: 10px;
+    }
+    span{
+        margin-right: 2px;
+        align-items: center;
+    }
+    .comment-file-box{
+        height: 40px; 
+        margin-top:8px; 
+        display: flex; 
+        background: #f5f5f5; 
+        padding: 12px; 
+        align-items: center;
+        i{
+            font-size:21px; 
+            margin-right: 12px; 
+            color: #2e9df0;
+        }
+    }
+}
+
+//file
+.file-box{
+    border: 1px solid #e1ebef; 
+    padding: 10px;
+    /* height: 64px; */
+    display: flex; 
+    align-items: center;
+    .file-text{
+        display: flex; 
+        justify-content: space-between;
+        width: 100%;
+    }
+    .file-text-date{
+        display: flex; 
+        justify-content: 
+        flex-end; 
+        align-items: center
+    }
+}
+.history-box{
+    @extend .text-f12;
+    padding: 12px;
+    color: #a3a3a3;
+    li{
+        margin-bottom: 16px;
+    }
+    .gray{
+        padding-left: 16px;
+        position: relative;
+        ::after{
+            position: absolute;
+            top:24px;
+            left:0;
+            content:'';
+            width:7px;
+            height: 7px;
+            border-radius: 100%;
+            background: #e8e8e8;
+        }
+    }
+    .green{
+        @extend .gray;
+        ::after{
+            background: #4abc3b;
+        }
+    }
+    .yellow{
+        @extend .gray;
+        ::after{
+            background: #f9d83c;
+        }
+    }
+    .red{
+        @extend .gray;
+        ::after{
+            background: #F75F5F;
+        }
+    }
+    .date{
+        color: #222;
+        margin-bottom: 2px;
+        display: block;
+    }
+}
+
+//comment ของ file
+.comment-file{
+    margin-top:8px; 
+    display: flex; 
+    background: #f5f5f5; 
+    padding: 12px; 
+    align-items: center;
+    width: 80%;
+    border-radius: 10px;
+    i{
+        font-size:21px; 
+        margin-right: 12px; 
+        color: #2e9df0;
+    }
+}
+.comment-box{
+    height: calc(100% - 76px);
+    overflow-y: auto;
+}
+.comment-chat{
+    padding:24px 12px 12px 12px;
+    border-top:1px solid #e1ebef; 
+    .inner-chat{
+        height: 38px;
+        width: 100%;
+        border: 1px solid #cacaca; 
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        .file-input-wrapper {
+            display: flex;
+            .file-input-button {
+                color:#cacaca;
+                border-right:1px solid #cacaca;
+                padding: 9px 10px 5px 10px;
+                margin: 0px;
+                height: 38px;
+                font-size:14px;
+                &:hover{
+                    color:#2e9df0;
+                }
+            }
+            input {
+              display: none;
+            }
+        }
+        input{
+            flex: 3;
+            height: 38px;
+            border: 0;
+            padding: 5px 12px;
+            &:focus{
+                border: 0;
+                box-shadow: 0 0 0px !important;
+                outline: none;
+            }
+        }
+        button{
+            height: 38px;
+            color:#cacaca;
+            border-left: 1px solid #cacaca; 
+            border-radius: 0;
+            &:hover{
+                color:#2e9df0;
+            }
+            &:active{
+                color:white;
+                background: #2e9df0;
+            }
+        }
+    }
+}
+//calender
+#show-calender{
+    display: none;
+    text-align: right;
+}
+//แต่ละitem
+.date-text{
+    display: none;
+}
+/* ------------------------------ */
+/* ------------------------------ */
+// ----- PAGE :: Profile ----- //
+.profile li{
+    margin-right: 12px;
+}
+.profile .active{
+    color: #2e9df0;
+    border-color: #2e9df0;
+}
+//ส่วนหัวที่ย่อเหลือแต่ icon สำหรับมือถือ
+@media (max-width: 485px) {
+    .profile{
+        .btn-normal span{
+            display:none;
+        }
+    }
+}
+/*ส่วนเนื้อหา*/
+.content-body-profile{
+    padding: 45px;
+    font-size: 12px;
+    border: 1px solid#dbdbdb;
+}
+@media (max-width: 446px) {
+    .content-body-profile{
+        padding: 25px 5px 25px 15px;
+    }
+}
+.content-body-profile .tab-content{
+    margin: 0;
+}
+/*Tab ::  General Set*/
+// กรณียังไม่อัพรูป
+.defualt-avatar-upload{
+    width: 80px; 
+    height: 80px; 
+    border-radius: 12px; 
+    background: #B8E17D
+}
+// กรณีที่อัพรูปแล้ว
+.avatar-upload{
+    width: 80px; 
+    height: 80px; 
+    border-radius: 12px;
+    display: none;
+    object-fit: cover;
+}
+/*กล่องด้านข้างรูป avatar*/
+.box-side-avatar{
+    position: relative;
+    width: 100%;
+}
+.box-side-avatar p{
+    margin-bottom: 0;
+    text-decoration: none;
+    color: #2e9df0;
+    cursor: pointer;
+}
+// ส่วนอัพโหลด
+#up-img label {
+    position: absolute;
+    top:31px;
+    color: #2e9df0;
+    cursor: pointer;
+}
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+//ส่วนเปลี่ยน กับ ลบภาพ
+.box-side-avatar .change-photo{
+    color: #2e9df0;
+    cursor: pointer;
+    width: 100%;
+    position: absolute;
+    top:16px;
+    display: none;
+}
+#changephoto {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+// Form
+.profile-GeneralSet-form,.profile-password-form{
+    display: flex; 
+    margin-top: 24px;
+}
+.profile-GeneralSet-form-label{
+    margin-right: 12px; 
+    width:80px;
+}
+.profile-GeneralSet-form-label label{
+    margin: 6px 0 0 0;
+}
+.box-side-avatar .discri-photo{
+    color:#959595; 
+    font-size:11px; 
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+}
+/*Tab ::  Notification*/
+#Check-all,#Uncheck-all{
+    text-decoration: none;
+    color: #2e9df0;
+    cursor: pointer;
+}
+.container-fluid{
+    padding: 0;
+}
+.list-check{
+    width: 100%;
+    margin: 8px 0;
+}
+.list-check-box div{
+    margin-top:16px;
+}
+.custom-checkbox label{
+    line-height: 2.1;
+}
+/*Tab ::  Password*/
+.profile-password-form-label{
+    margin-right: 12px; 
+    width:150px;
+}
+// กรณี pass ไม่ตรงที่กำหนด
+.password-error > input,.password-error > input:focus{
+    border: 1.5px solid #F75F5F !important;
+    box-shadow: 0 0 0px !important
+}
+// สำหรับตัวแจ้งเตือนความผิดพลาด
+.error-text{
+    color: #F75F5F;
+    font-size: 12px;
+    display: none;
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+
+// ----- PAGE :: Web Settiing ----- //
+//mobile size
+@media(max-width:567px){
+    .tabHead-webSet{
+        display: none;
+    }
+}
+@media(max-width:410px){
+    .tabInnerConnet{
+        display: none;
+    }
+}
+#RightSide-user,#RightSide-group{
+    display: none;
+}
+
+//Tab :: users สมาชิก
+.webSet-mem{
+    border-top: 1px solid#e1ebef; 
+    overflow-y: scroll;
+    a{
+        color: #222;
+        padding:16px;
+        &:hover{
+            h4{
+                color: #2e9df0;
+            }
+        } 
+    }
+    .nav{
+        border: 1px solid #e1ebef;
+    }
+    .nav-pills .nav-link{
+        border-radius: 0;
+        border-bottom: 1px solid #e1ebef;
+    }
+    .nav-pills .nav-link.active, .nav-pills .show >.nav-link{
+        color: #222;
+        background: transparent;
+        border: 1px solid #2e9df0;
+        border-radius: 0;
+    }
+}
+//Modal ของ invite user
+.header-invite{
+    align-items: center;
+    text-align: center;
+    h3{
+        font-size: 16px;
+    }
+}
+.content-invite{
+    li{
+        margin-bottom: 12px;
+    }
+}
+//Tab:: group
+#btnset-SaveRename,#inputGroup{
+    display: none;
+}
+
+//Tab:: company
+.defualt-logo-upload{
+    width: 120px; 
+    height: 40px; 
+    background: #B8E17D
+}
+// กรณีที่อัพรูปแล้ว
+.logo-upload{
+    width: 120px; 
+    height: 40px;  
+    display: none;
+}
+.logo-box{
+    #up-logo{
+        p{
+            margin-top:8px;
+        }
+        label{
+            cursor: pointer;
+            font-size:12px;
+            color:#2e9df0;
+            margin: 0;
+        } 
+    }
+    .change-logo{
+        display:none;
+        label,p{
+            font-size:12px;
+            color:#2e9df0;
+            margin: 0;
+            cursor: pointer;
+        }
+    }
+}
+//Tab:: Bussiness
+//Non-working-day
+.Non-working-day{
+    @extend .box-one;
+    margin-top:3px;
+    padding-left:15px;
+    .custom-checkbox{
+        margin-right: 8px;
+    }
+}
+//holiday
+.holiday{
+    #box-holiday{
+        margin:8px 0;
+    }
+    .inputHoliday{
+        display:none;
+        input{
+            margin-right: 8px;
+            width: 35%;
+            &:first-child{
+                width: 20%;
+            }  
+        }
+        button{
+            margin-right: 8px;
+        }
+    }
+    .delete-Holiday{
+        cursor: pointer;
+        color: #959595;
+    }
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+// Element
+.focus-noBoxShadow{
+    &:focus{
+        box-shadow: 0 0 0px !important
+    }
+}
+// ----- ปุ่ม ----- //
+.btn-normal{
+    @extend .focus-noBoxShadow;
+    color: #959595;
+    border: 1px solid #cacaca;
+    border-radius: 50px;
+    font-size:14px;
+    &:hover{
+        color: #2e9df0;
+        border: 1px solid #2e9df0;
+    }
+    &:active{
+        color: white;
+        background: #2e9df0;
+    }
+}
+//ปุ่ม delete group
+.btn-groupDelete{
+    @extend .btn-normal;
+    &:hover{
+        color: #F75F5F;
+        border: 1px solid #F75F5F;
+    }
+    &:active{
+        color: white;
+        background: #F75F5F;
+    }
+}
+// ปุ่ม icon ที่สีไม่เปลี่ยน
+.btn-icon-link{
+    @extend .btn-normal;
+    color: #2e9df0;
+    border: 1px solid #2e9df0;
+    padding: 6px 10px;
+    &:active{
+        color: #2e9df0;
+        background: transparent;
+    }
+}
+// ปุ่มลบ
+.btn-delete{
+    @extend .focus-noBoxShadow;
+    color: white;
+    background: #F75F5F;
+    border-radius: 50px;
+    font-size:14px;
+    &:hover{
+        color: white;
+    }
+    &:active{
+        color: white;
+        background: #F75F5F;
+    }
+}
+.btn-save{
+    @extend .focus-noBoxShadow;
+    color: #959595;
+    border: 1px solid #cacaca;
+    border-radius: 50px;
+    font-size:14px;
+    &:hover{
+        color: green;
+        border: 1px solid green;
+    }
+    &:active{
+        color: white;
+        background: green;
+        border: 1px solid white;
+    }
+}
+.btn-green{
+    @extend .focus-noBoxShadow;
+    color: white;
+    background: #4abc3b;
+    border-radius: 50px;
+    font-size:14px;
+    &:hover{
+        color: white;
+        background: #59dd47;
+    }
+    &:active{
+        color: white;
+        background: #59dd47;
+    }
+}
+.btn-orn{
+    @extend .focus-noBoxShadow;
+    color: white;
+    background: #000;
+    border-radius: 50px;
+    font-size:14px;
+    &:hover{
+        color: white;
+        background: #484848;
+    }
+    &:active{
+        color: white;
+        background: #000;
+    }
+}
+.btn-blue{
+    @extend .focus-noBoxShadow;
+    color: white;
+    background: #1369b0;
+    border-radius: 50px;
+    font-size:14px;
+    &:hover{
+        color: white;
+        background: #1396b0;
+    }
+    &:active{
+        color: white;
+        background: #1369b0;
+    }
+}
+/* ปุ่มที่ยังกดไม่ได้ */
+.btn-unclick{
+    @extend .focus-noBoxShadow;
+    color: #959595;
+    background: #E8E8E8;
+    border-radius: 50px;
+    font-size:14px;
+    cursor: not-allowed;
+    &:hover{
+        color: #959595;
+    }
+}
+// ปุ่ม add icon
+.btn-icon-add{
+    @extend .focus-noBoxShadow;
+    background: transparent;
+    color: #959595;
+    height: 64px;
+    border: 0;
+    margin: 0;
+    display: flex;
+    .add-icon{
+        height: 40px; 
+        width: 40px; 
+        border: 1px dashed #cacaca;
+        margin-right: 12px;
+        display: flex;
+        justify-content: center;
+        i{  
+            font-size: 16px;
+            align-self: center;
+        }
+    }
+    // text
+    .add-text{
+        align-self: center;
+        margin-right: 50px;
+    }
+    // icon รูป folder ที่มี + เท่านั้น
+    .i-folder{
+        color: #ccc;
+        font-size: 38px; 
+        margin-right: 12px;
+    }
+    &:hover{
+        .add-text{
+            color: #2e9df0
+        }
+        .add-icon{
+            color: #2e9df0;
+            border: 1px dashed #2e9df0;
+        }
+        .i-folder{
+            color: #2e9df0;
+        }
+    }
+}
+//ปุ่มลบ user in modal on web setting page
+.btn-modelUser-delete{
+    @extend .focus-noBoxShadow;
+    color: #959595;
+    border: 1.5px solid #cacaca;
+    border-radius: 50px;
+    font-size:12px;
+    padding: 4px 8px;
+    height: 28px;
+    &:hover{
+        color: #959595; 
+    }
+}
+// ระหว่างกรณีมีปุ่มเป็นชุดๆ
+.btn-setleft button, .btn-setleft a{
+    margin-left: 12px;
+}
+.btn-setright button, .btn-setright a{
+    margin-right: 12px;
+}
+.btn-set button, .btn-set a{
+    margin-right: 8px;
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+
+// ----- image ----- //
+//bg #B8E17D
+// รูปขนาด 40*40
+.img-small-menu{
+    width: 40px; 
+    height: 40px; 
+    border-radius: 12px;
+}
+.img-small{
+    width: 24px; 
+    height: 24px; 
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    p{  
+        font-size: 11px;
+        color:white;
+        align-self: center;
+        margin-bottom: 0;
+    }
+}
+.img-medium{
+    @extend .img-small;
+    width: 40px; 
+    height: 40px; 
+    border-radius: 12px;
+    p{
+        font-size: 14px;
+    }
+}
+.img-big{
+    @extend .img-small;
+    width: 80px; 
+    height: 80px; 
+    border-radius: 16px;
+    p{
+        font-size: 20px;
+    }
+}
+.img-logo{
+    width: 120px; 
+    height: 40px; 
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+
+// ----- Icon ----- //
+// icon ขนาด 24*24
+.icon-small-size{
+    height: 24px;
+    width: 24px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    i{
+        font-size: 14px;
+        align-self: center;
+    }
+}
+// icon ขนาด 40*40
+.icon-medium-size{
+    height: 40px;
+    width: 40px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    i{  
+        align-self: center;
+    } 
+}
+// icon ขนาด 40*40 fontSize16
+.icon-medium-size-f16{
+    @extend .icon-medium-size;
+    font-size: 16px;
+}
+// icon ขนาด 40*40 fontSize16 ในหน้า
+.icon-medium-size-f16-Inprocess{
+    @extend .icon-medium-size-f16;
+    border: 1px dashed #959595;
+}
+.icon-medium-size-f20{
+    @extend .icon-medium-size;
+    font-size: 20px;
+}
+.icon-medium-size-f24{
+    @extend .icon-medium-size;
+    font-size: 24px;
+}
+.icon-big-size-f20{
+    height: 80px;
+    width: 80px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    i{
+        font-size: 30px;
+        align-self: center;
+    }
+}
+//กล่องสำหรับเลือก icon
+.icon-select{
+    height: 40px;
+    width: 40px;
+    border: 2px dashed #9d9d9d;
+    border-radius: 12px;
+    margin-right: 12px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    i{
+        color: #9D9D9D;
+        font-size: 20px;
+        align-self: center;
+    }
+    &:hover{
+        border: 2px dashed #2e9df0;
+        i{
+            color: #2e9df0;
+        }
+    }
+}
+// ปุ่มที่มีแต่ icon [CreateTem]
+.icon-btn{
+    padding: 6px 10px;
+    color: #cacaca;
+    border: 1px solid #cacaca;
+    border-radius: 50px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .3s;
+    &:hover{
+        color: red;
+        border: 1px solid red;
+        transition: .3s;
+    }
+}
+.icon-edit{
+    padding: 6px 10px;
+    color: #cacaca;
+    border: 1px solid #cacaca;
+    border-radius: 50px;
+    font-size: 14px;
+    transition: .3s;
+    cursor: pointer;
+    &:hover{
+        color: #2e9df0;
+        border: 1px solid #2e9df0;
+        transition: .3s;
+    }
+}
+// ปุ่มicon เทาล้วน อันเล็ก หน้า create tem
+.mini-icon-btn{
+    @extend .focus-noBoxShadow;
+    color: #959595;
+    border: 1px solid #cacaca;
+    font-size: 10px;
+    border-radius: 50px;
+    padding: 4px 7px;
+    &:hover,&:active{
+        color: #959595;
+        border: 1px solid #cacaca;
+    }
+}
+.icon-back-startProcess{
+    position: absolute; 
+    padding: 2px 7px; 
+    top:17px; 
+    left: 4px;
+    &:hover{
+        color: #2e9df0;
+        cursor: pointer;
+    }
+}
+.icon-back-intemplate{
+    @extend .icon-back-startProcess;
+    top: 17px;
+    left: 2px;
+}
+.icon-back-inprocess{
+    @extend .icon-back-startProcess;
+    top: 27px;
+    left: 2px;
+}
+.icon-inprocess{
+    span{
+        margin-left: 10px;
+    }
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+// ----- Text ----- //
+.text-sub{
+    font-size:12px;
+    color: #959595;
+    margin-bottom: 0;
+}
+.text-green{
+    font-size:12px;
+    color: #4abc3b;
+    margin-bottom: 0;
+}
+.text-sub-mini{
+    @extend .text-sub;
+    font-size: 9px;
+}
+.no-marginBottom{
+    margin-bottom: 0px;
+}
+.text-f20{
+    @extend .no-marginBottom;
+    font-size:20px;
+}
+.text-f16{
+    @extend .no-marginBottom;
+    font-size: 16px;
+}
+.text-f15{
+    @extend .no-marginBottom;
+    font-size: 15px;
+}
+.text-f14 {
+    @extend .no-marginBottom;
+    font-size: 14px;
+}
+.text-f12{
+    @extend .no-marginBottom;
+    font-size: 12px;
+}
+.text-error{
+    @extend .text-f12;
+    color: #F75F5F;
+    visibility: hidden;
+}
+
+
+/* ------------------------------ */
+/* ------------------------------ */
+
+
+// ----- Box ----- //
+// 1. กล่องใหญ่ที่มีกล่องเล็ก2ใบ กล่องชิดซ้าย,กล่องชิดขวา
+.box-normal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+// 2. กล่องแบบ flex, middle item 
+.box-one{
+    display: flex;
+    align-items: center;
+}
+// 2. กล่องชิดซ้ายแบบยาวกว่าขวา
+.box-normal-left{
+    @extend .box-one;
+    flex: 2;
+}
+// 3. กล่อง สำหรันหน้าที่ลงท้ายด้วยtemplate
+.box-flex-Templatetitle{
+    display: flex;
+    flex:2;
+    height: 50px;
+    margin-top:5px;
+}
+// 4. กล่องใหญ่ที่มีด้านซ้ายและขวาเท่าๆกัน
+.box-two-side{
+    height: 100%;
+    display: flex;
+    .box-left-side{
+        padding-right: 16px;
+        height: 100%;
+        flex: 1;
+    }
+    .box-right-side{
+        padding: 16px 24px 0 32px;
+        height: 100%;
+        flex: 1;
+    }
+}
+// scroll สำหรับกล่องที่มี2ด้าน
+.box-scroll{
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+.box-left-right{
+    display: flex;
+    align-items: center;
+    .box-left{
+        flex: 1; 
+    }
+    .box-right{
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+    }
+    .box-right-img{
+        margin-right: 8px;
+        align-self: center;
+    }
+}
+
+
+// ----- Link ----- //
+.link-noEffect{
+    text-decoration: none;
+    color: transparent;
+    &:hover{
+        text-decoration: none;
+    }
+}
+.link-ingroup{
+    font-size: 12px;
+    color: #2e9df0;
+    &:hover{
+        text-decoration: none;
+    }
+}
+.link-date{
+    @extend .text-f12;
+    color: #959595;
+    &:hover{
+        color: #2e9df0;
+        cursor: pointer;
+        text-decoration: none;
+    }
+}
+//2.link ในหน้าinprocess เชื่อมไปหน้าintemplate
+.link-intamplate{
+    color: #959595;
+    border-bottom: 1px solid #959595;
+    &:hover{
+        text-decoration: none;
+        color: #959595;
+        border-bottom: 1px solid #959595;
+    }
+}
+// ----- Model ----- //
+.modal-body{
+    padding: 32px;
+    .modal-section{
+        overflow-y: auto; 
+        margin: 12px 8px 0 0;
+    }
+    .modal-input-upload{
+        background: white;
+    }
+}
+
+
+// ----- Form ----- //
+//1. form สำหรับ
+.form-line{
+    display: flex; 
+    margin-top: 24px;
+    font-size:12px;
+}
+// 2. model ในหน้า template
+.form-model-template{
+    margin-top:12px;
+}
+// ปุ่มด้านล่างของ modal ในหน้า template
+.form-model-template-button{
+    margin-top:24px;
+    text-align: center;
+    button{
+        margin-right:5px;
+    }
+}
+
+// ----- Input ----- //
+.input-Title{
+    font-size: 21px;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    height: 28px;
+    &:hover{
+        border: 1px solid #e1ebef;
+    }
+    &:focus{
+        border: 0 !important;
+    }
+}
+.input-sectionName{
+    @extend .input-Title;
+    font-size: 16px;
+    background: transparent !important;
+    &:hover{
+        border: 0;
+    }
+}
+//input เต็มจอฝั่งขวา
+.input-right-fullWidth{
+    width: calc(100% - 162px);
+}
+.input-w60{
+    width: 60px;
+}
+.input-w340{
+    max-width: 340px;
+}
+.select-w130{
+    max-width: 130px;
+}
+.input-error{
+    border-color: #F75F5F;
+    &:focus{
+        border-color: #F75F5F;
+    }
+}
+// ----- Label ----- //
+.label-normal{
+    label{
+        margin: 8px 0 0 0;
+    }
+}
+.label-w180{
+    margin-right: 12px; 
+    label{
+        width: 180px;
+        margin: 8px 0 0 0;
+        font-weight: bold;
+    }
+}
+.label-w170{
+    margin-right: 12px; 
+    label{
+        width: 170px;
+        margin: 8px 0 0 0;
+        font-weight: bold;
+    }
+}
+.label-w150{
+    @extend .label-normal;
+    label{
+        width: 150px;
+        font-weight: bold;
+    }
+}
+.label-w110{
+    @extend .label-w180;
+    label{
+        width: 110px;
+    }
+}
+
+
+// ----- Dropdown ----- //
+.dropbtn {
+    @extend .btn-normal;
+    position: relative;
+    width: 55px;
+    ::after{
+        content: "▾";
+        margin-left: 2px;
+    }
+} 
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
+}
+//dropdown size
+.dropdown-sizeField{
+    min-width: 110px;
+}
+.dropdown-sizeData{
+    min-width:80px;
+}
+ 
+.dropdown-contentSection{
+    display: none;
+    position: absolute;
+    background-color: white;
+    overflow: auto;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    div{
+        font-size: 14px;
+        padding: 8px;
+        text-decoration: none;
+        display: block;
+        i{
+            color: #959595; 
+            margin-right: 5px;
+        }
+        color: #222;
+        &:hover{
+            color: #2e9df0;
+            cursor: pointer;
+        }
+    }
+}
+
+//dropdwon status
+.dropdown-input{
+    width:110px; 
+    margin-right:8px;
+}
+//2.dropdown รายชื่อคน
+.dropinput{
+    position: relative;
+    width: 55px;
+} 
+  
+.dropdown-contentperson{
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 250px; //ความยาวแปรผันตามความยาวinput
+    height: 200px;;
+    overflow-y: scroll;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    li{
+        .div-first{
+            font-size: 14px;
+            padding: 8px 0;
+            display: flex; 
+            align-items: center;
+        }
+        .icon-person{
+            color: #ccc;
+            margin: 0 8px 0 3px;;
+            align-self: center;
+            cursor: pointer;
+        }
+        .indiv-secound{
+            @extend .div-first;
+            margin-left: 40px;
+            font-size: 12px;
+            align-items: center;
+        }
+    }
+}
+//ลำดับของclass สำคัญ โค้ดอ่านจากบนลงล่าง โค้ดล่างสุดจะทับโค้ดบน
+.show {
+    display: block;
+}
+
+//3.dropdown process dropdownไปทางซ้าย
+.dropbtnprocess{
+    @extend .dropbtn;
+}
+.dropdown-contentProcess{
+    @extend .dropdown-contentSection;
+    right: 0px;
+}
+
+//4.dropdown
+.drop-btn-item-section{
+    @extend .focus-noBoxShadow;
+    width: 100px;
+    color: #959595;
+    border: 1px solid #cacaca;
+    border-radius: 5px;
+    font-size:14px;
+    position: relative;
+    &:active{
+        color: white;
+        border: 1px solid #2e9df0;
+    }
+    .show{
+        border: 1px solid #2e9df0;
+    }
+}
+//5.dropdowntem-section
+.hidden-itemSection{
+    visibility: hidden;
+}
+.show-itemSection{
+    visibility: visible !important;
+    i{
+        color:#4abc3b !important;
+    }
+}
+// ----- card ----- //
+//1. card หน้า start process
+.card{
+    background: #fafafa;
+    margin: 0 8px 16px;
+    .card-body{
+    width: 225px;
+    height: 240px;
+    position: relative;
+        .card-top{
+            display: flex;
+            justify-content: center;
+        }
+        .card-middle{
+            margin-top:16px;
+        }
+        .card-bottom{
+            display: flex;
+            justify-content: center;
+            p{
+                position: absolute;
+                left: 24px;
+                bottom: 24px;
+                display: inline;
+            }
+            button{
+                display: none;
+                position: absolute;
+                bottom: 24px;
+            }
+        }
+    }
+    &:hover{
+        background: #E8E8E8;
+        .card-bottom{
+            p{
+                display: none;
+            }
+            button{
+                display: block;
+            }
+        }
+    }
+}
+
+// ----- Calender----- //
+.datepicker--cell,
+.datepicker,
+.datepicker--time-current-hours,
+.datepicker--time-current-minutes{
+    z-index:10000 !important;
+}
+
+// ----- Tooltip----- //
+.tooltip{
+    font-size:12px;
+}
+
+// ----- PAGE :: InTemplate ----- //
+//tab
+.text-f21{
+    @extend .no-marginBottom;
+    font-size:21px;
+}
+@media(max-width: 729px){
+    .tabHead-InTem,.box-UserCreate{
+        display: none;
+    }
+    .box-left-right .box-right{
+        justify-content: flex-end;
+        flex: 0.5;
+    }
+}
+@media(max-width: 483px){
+    .box-flex-Templatetitle {
+        h1{
+            font-size:16px !important;
+        }
+    }
+    #mobileSizeBtnHeader{
+        button:last-child{
+            margin-left: 0px;
+            font-size: 10px;
+            padding: 4px 11px;
+        }
+        a{
+            margin-left: 0px;
+            font-size: 10px;
+            padding: 9px 11px;
+        }
+    }
+}
+/* ------------------------------ */
+/* ------------------------------ */
+
+.taskdefault,.approvaldefault,.groupdefault,
+#apprpval,#group,.sectionItem{
+    visibility: hidden;
+    height: 0;
+}
+// custom avatar upload 
+
+.avatar-uploads {
+    position: relative;
+    
+    .avatar-edit {
+        position: absolute;
+        right: 12px;
+        z-index: 1;
+        top: 10px;
+        input {
+            display: none;
+            + label {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                margin-bottom: 0;
+                border-radius: 100%;
+                background: #FFFFFF;
+                border: 1px solid transparent;
+                box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                cursor: pointer;
+                font-weight: normal;
+                transition: all .2s ease-in-out;
+                &:hover {
+                    background: #f1f1f1;
+                    border-color: #d6d6d6;
+                }
+                &:after {
+                    content: "\f040";
+                    font-family: 'FontAwesome';
+                    color: #757575;
+                    position: absolute;
+                    top: 10px;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                    margin: auto;
+                }
+            }
+        }
+    }
+    .avatar-previews {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        border-radius: 20px;
+        border: 6px solid #F8F8F8;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        > div {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}
+.w-300 {
+    width: 300px;
+}
+.mg-t-30{
+    margin-top: -30px;
+}
+.not_underline{
+    text-decoration: none !important;
+}
+.bg-red{
+    background-color: #ff5151;
+    border-radius: 20px;
+    &:hover{
+        background-color: red;
+    }
+}
+// .btn-danger-c{
+    
+// }
+.w-20 {
+    width : 20%;
+}
+.w-5{
+    width: 5%;
+}
+.w-15{
+    width: 15%
+}
+.bg-graywhite{
+    background-color: #f8f9fa!important;
+}
+.ojb-fit{
+    object-fit: cover;
+    border-radius: 12px;
+}
+.w-50{
+    width: 50% !important;
+}
+.f-30{
+    font-size: 30px;
+}
+.f-25{
+    font-size: 25px;
+}
+.f-16{
+    font-size: 16px;
+}
+.f-18{
+    font-size: 18px;
+}
+.noti-icon{
+    color: #d5d4ce;
+    transition: .2s;
+    &:hover{
+        color: #ffdb00;
+        transition: .2s;
+        cursor: pointer;
+    }
+}
+.dropdown-toggle::after {
+    display:none;
+}
+.noti-number{
+    font-size: 10px;
+    position: absolute;
+    top: -3px;
+    right: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: red;
+    text-align: center;
+    padding-top: 3px;
+    color: #fff;
+    border-radius: 50%;
+}
+.dpn{
+    display: none;
+}
+.bg-comments{
+    background-color: rgba(220, 220, 220, 0.3411764706);
+    border-radius: 10px;
+    padding: 0 5px 0 10px;
+}
+
+.comment-box-custom{
+    border-bottom: 1px solid #f9f9f9;
+    padding: 18px 0 18px 0; 
+    // height: 64px; 
+    display: flex; 
+    align-items: center;
+    width:97%;
+    .file-text{
+        display: flex; 
+        justify-content: space-between;
+        width: 100%;
+    }
+    .file-text-date{
+        display: flex; 
+        justify-content: 
+        flex-end; 
+        align-items: center
+    }
+    .text-detail{
+        background-color: #f1f1f1;
+        color: black;
+        border-radius: 10px;
+        padding: 2px 5px 2px 5px;
+        max-width: 500px;
+    }
+    .menu-bt{
+        font-size:13px;
+        color : #afafaf;
+        cursor:pointer;
+        transition: .3s;
+        &:hover{
+            color: #6d6c6c;
+            transition: .3s;
+        }
+    }
+    .comment-file{
+        margin-top: 8px;
+        display: flex;
+        background: #f5f5f5;
+        padding: 12px;
+        align-items: center;
+        width: 100%;
+        border-radius: 10px;
+    }
+}
+.ct-icon {
+    color:gainsboro;
+    &:hover{
+        color: gainsboro;
+    }
+}
+.btn-check-app{
+    width: 30px;height: 30px;background-color: white;border: 0px solid gainsboro;outline:none;
+}
+.cts-app{
+    font-size: 25px;color: gainsboro;
+    transition: .3s;
+    &:hover{
+        color:green;
+        transition: .3s;
+    }
+}
+.cts-cancel{
+    font-size: 25px;color: gainsboro;
+    transition: .3s;
+    &:hover{
+        color:red;
+        transition: .3s;
+    }
+}
+.ojf-cover{
+    object-fit: cover;
+}
+.text-orange{
+    color : orange;
+}
+strong {
+    font-weight: 500;
+  }
+  
+  a {
+   
+    // text-decoration: none;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    -ms-transition: all .3s;
+    transition: all .3s;
+    &:hover, &:focus {
+   
+    //   text-decoration: none;
+      -o-transition: all .3s;
+      -moz-transition: all .3s;
+      -webkit-transition: all .3s;
+      -ms-transition: all .3s;
+      transition: all .3s;
+    }
+  }
+  
+  h1, h2 {
+    
+    font-size: 38px;
+    font-weight: 100;
+    color: #555;
+    line-height: 50px;
+  }
+  
+  h3 {
+    font-size: 22px;
+    font-weight: 300;
+
+    line-height: 30px;
+  }
+  
+  h4 {
+    font-size: 18px;
+    font-weight: 300;
+    color: #555;
+    line-height: 26px;
+  }
+  
+  ::-moz-selection, ::selection {
+    background: #000;
+    color: #fff;
+    text-shadow: none;
+  }
+  
+  .form-box {
+    padding-top: 40px;
+  }
+  
+  .f1 {
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.54);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    h3 {
+      margin-top: 0;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+  }
+  
+  .f1-steps {
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .f1-progress {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #ddd;
+  }
+  
+  .f1-progress-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    background: #000;
+  }
+  
+  .f1-step-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-top: 4px;
+    background: #ddd;
+    font-size: 16px;
+    color: #fff;
+    line-height: 40px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
+  
+  .f1-step {
+    &.activated .f1-step-icon {
+      background: #fff;
+      border: 1px solid #000;
+      color: #000;
+      line-height: 38px;
+    }
+    &.active .f1-step-icon {
+      width: 48px;
+      height: 48px;
+      margin-top: 0;
+      background: #000;
+      font-size: 22px;
+      line-height: 48px;
+    }
+    p {
+      color: #ddd;
+    }
+    &.activated p, &.active p {
+      color: #000;
+    }
+  }
+  
+  .f1 fieldset {
+    display: none;
+    text-align: left;
+  }
+  
+  .f1-buttons {
+    text-align: right;
+  }
+  
+  .f1 .input-error {
+    border-color: #000;
+  }
+  
+  .error-vali {
+    border: 2px solid red !important;
+  }
+  
+  /* logo */
+  
+  .navbar-brand {
+    background-image: url(../img/logo@2x.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 162px 36px !important;
+  }
+  
+  .activated .f1-step-icon {
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+    line-height: 38px;
+  }
+  
+ 
+  
+  #myform {
+    padding: 44px;
+    background-color: rgba(0, 0, 0, 0.62);
+    border-radius: 15px;
+    border: 1px solid rgba(245, 245, 245, 0.51);
+  }
+  
+  label.error {
+    width: 100%;
+    text-align: left;
+    color: #000;
+  }
+  
+  #pre_production, #post_production, #production {
+    display: none;
+  }
+  
+  .f1-step {
+    position: relative;
+    float: left;
+    width: 25%;
+    padding: 0 5px;
+  }
+  
+  .input-hidden {
+    position: absolute;
+    left: -9999px;
+  }
+  
+  input[type=radio] {
+    &:checked + label > img {
+      border: 1px solid #000;
+      box-shadow: 0 0 3px 3px #000;
+    }
+    + label > img {
+      border: 1px solid #444;
+      width: 150px;
+      height: 150px;
+      transition: 500ms all;
+    }
+  }
+  
+  /* Stuff after this is only to make things more pretty */
+  
+  .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('https://media.giphy.com/media/cBQBqW7OJblba/source.gif') 50% 50% no-repeat rgb(249, 249, 249);
+    background-size: 300px;
+    background-color: #15191f;
+  }
+  
+  .inputGroup {
+    display: block;
+    margin: 10px 0;
+    position: relative;
+    label {
+      padding: 12px 30px;
+      border-radius: 30px;
+      width: 95%;
+      margin: auto;
+      display: block;
+      text-align: left;
+      color: #000;
+      border: 1px solid #000;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      transition: color 200ms ease-in;
+      overflow: hidden;
+      &:before {
+        width: 16px;
+        height: 10px;
+        border-radius: 50%;
+        content: '';
+        background-color: #484848;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale3d(1, 1, 1);
+        transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        z-index: -1;
+      }
+      &:after {
+        width: 32px;
+        height: 32px;
+        content: '';
+        border: 2px solid #d1d7dc;
+        background-color: #fff;
+        background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+        background-repeat: no-repeat;
+        background-position: 2px 3px;
+        border-radius: 50%;
+        z-index: 2;
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        transition: all 200ms ease-in;
+      }
+    }
+    input {
+      &:checked ~ label {
+        color: #fff;
+        &:before {
+          transform: translate(-50%, -50%) scale3d(56, 56, 1);
+          opacity: 1;
+        }
+        &:after {
+          background-color: #000;
+          border-color: #000;
+        }
+      }
+      width: 32px;
+      height: 32px;
+      order: 1;
+      z-index: 2;
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      visibility: hidden;
+    }
+  }
+  
+  .form {
+    padding: 0 16px;
+    max-width: 550px;
+    margin: 50px auto;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 36px;
+  }
+  
+  * {
+    box-sizing: inherit;
+    &::before, &::after {
+      box-sizing: inherit;
+    }
+  }
+  
+  html {
+    box-sizing: border-box;
+  }
+  
+  code {
+    background-color: #9aa3ac;
+    padding: 0 8px;
+  }
+  
+  .border-gainsboro {
+    border: 1px solid gainsboro;
+  }
+  
+  .padding-custom-for-header-cls {
+    padding: 5px 0 3px 10px;
+  }
+  
+  .margin-custom-for-header-cls {
+    margin: 10px 10px 10px 10px;
+    cursor: pointer;
+  }
+  
+  .bg-gainsboro {
+    background-color: #e6e6e6;
+  }
+  
+  .w-40 {
+    width: 40%;
+  }
+  
+  .w-10 {
+    width: 10%;
+  }
+  
+  .w-35 {
+    width: 35%;
+  }
+  
+  .w-65 {
+    width: 65%;
+  }
+  
+  .w-60 {
+    width: 60%;
+  }
+  
+  .w-30 {
+    width: 30%;
+  }
+  
+  .w-90 {
+    width: 90%;
+  }
+  
+  .w-16 {
+    width: 15%;
+  }
+  
+  .w-50 {
+    width: 50%;
+  }
+  
+  .w-80 {
+    width: 80%;
+  }
+  
+  .cls {
+    padding: 5px 10px 5px 10px;
+    border: 1px solid gainsboro;
+    margin: 0px 10px 10px;
+  }
+  
+  .form-group.has-error {
+    color: #000;
+  }
+  
+  .bd-rd30 {
+    border-radius: 30px !important;
+  }
+  
+  .datepicker {
+    z-index: 9999999 !important;
+  }
+  
+  .chosen-choices {
+    border: 1px solid gainsboro !important;
+    background-image: none !important;
+    background-image: none !important;
+  }
+  .w-100px{
+      width: 100px;
+  }
+  .bd-element-clone{
+    border: 1px solid gainsboro;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .h-38{
+      height: 38px !important;
+  }
+    .in_cls{
+      .box-normal{
+          height: 50px;
+    }
+    .img-medium{
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+}
+.pl-50{
+    padding-left:50px !important;
+}
