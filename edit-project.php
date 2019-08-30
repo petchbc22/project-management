@@ -73,6 +73,7 @@ include 'appsystem/inc_config.php';
     $pj_user_ceate          = $SQL_project_RESULT["pj_user_ceate"];
     $pj_process_start       = $SQL_project_RESULT["pj_process_start"];
     $pj_process_deadline    = $SQL_project_RESULT["pj_process_deadline"];
+    $pj_dayofwork           = $SQL_project_RESULT["pj_dayofwork"];
     // display template
     $SQL_template = "SELECT * FROM template WHERE tp_id = '$tp_id'  ";
     $SQL_template_QUERY = mysqli_query($conn,$SQL_template);
@@ -364,6 +365,9 @@ include 'appsystem/inc_config.php';
                                                             <input type="text" autocomplete="off" class="datepicker-set-end form-control form-control-sm pj_process_deadline w-100" id="pj_process_deadline" name="pj_process_deadline" placeholder="Due Date"  value="<?php echo $pj_process_deadline; ?>">  
                                                         </div>
                                                     </div>
+                                                 
+                                                    <input type="hidden" id="pj_diff_date" name="pj_diff_date">
+                                                   
                                                     <!-- Process instructions -->
                                                     <div class="form-group row form-line">
                                                         <label class="col-sm-3 col-form-label">Process instructions</label>
@@ -435,6 +439,7 @@ include 'appsystem/inc_config.php';
                                 <?php 
                                     while($template_result_query_r = mysqli_fetch_array($sql_template_result_r,MYSQLI_ASSOC)){
                                     $pjt_id            = $template_result_query_r["pjt_id"];
+                                    $tdf_id            = $template_result_query_r["tdf_id"];
                                     $pjt_title         = $template_result_query_r["pjt_title"];
                                     $pjt_description   = $template_result_query_r["pjt_description"];
                                     $pjt_starteddate   = $template_result_query_r["pjt_starteddate"];
@@ -461,7 +466,7 @@ include 'appsystem/inc_config.php';
                                                     <div class="form-group row form-line">
                                                         <label class="col-sm-3 col-form-label">Task title</label>
                                                         <div class="col-sm-9">
-                                                            <input class="form-control form-control-sm inputvalidate" type="text" id="task_title" name="task_title[]" value="<?php echo $pjt_title ;?>">
+                                                            <input class="form-control form-control-sm inputvalidate" type="text" id="task_title" name="task_title[]" value="<?php echo $pjt_title ;?>" disabled>
                                                             <p class="text-error">Text is required</p>
                                                         </div>
                                                     </div>
@@ -469,79 +474,25 @@ include 'appsystem/inc_config.php';
                                                     <div class="form-group row form-line">
                                                         <label for="Processtitle" class="col-sm-3 col-form-label">Description</label>
                                                         <div class="col-sm-9">
-                                                            <textarea style="font-size: 12px;" class="form-control" id="task_description" name="task_description[]" rows="5" placeholder="Provide detailed instructions on how to use this process (optional). Instructions will be available to all process participants"><?php echo $pjt_description; ?></textarea>
+                                                            <textarea style="font-size: 12px;" class="form-control" id="task_description" name="task_description[]" rows="5" ><?php echo $pjt_description; ?></textarea>
                                                         </div>
                                                     </div>
-                                                      <!-- started date -->
-                                                      <div class="form-group row form-line">
-                                                        <label class="col-sm-3 col-form-label">Started date</label>
-                                                        <div class="col-sm-9">
-                                                            <input class="datepicker-set-end form-control form-control-sm  w-100" id="pjt_starteddate" type="text" name="pjt_starteddate[]" data-language="en" placeholder="Set started date" data-timepicker="true" data-time-format='hh:ii:00' value="<?php echo $pjt_starteddate;?>"/>
-                                                        </div>
-                                                    </div>
+                                                    
                                                     <!-- Due date -->
                                                     <div class="form-group row form-line">
                                                         <label class="col-sm-3 col-form-label">Due date</label>
                                                         <div class="col-sm-9">
-                                                            <input class="datepicker-set-end form-control form-control-sm  w-100" id="pjt_duedate" type="text" name="pjt_duedate[]" data-language="en" placeholder="Set due date" data-timepicker="true" data-time-format='hh:ii:00' value="<?php echo $pjt_duedate;?>"/>
+                                                            <input class="pjt_duedate<?php echo $tdf_id;?> form-control form-control-sm  w-100" id="pjt_duedate" type="text" name="pjt_duedate[]"  value="<?php echo $pjt_duedate;?>"/>
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" class="pjt_diff_date<?php echo $tdf_id;?>" id="pjt_diff_date" name="pjt_diff_date[]">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <?php } ?>
-                                <div id="task" class="tabcontent">
-                                    <div class="tab-content" id="v-pills-tabContent">
-                                        <div class="tab-pane fade show active tab-Header" id="v-pills-Task" role="tabpanel" aria-labelledby="v-pills-Task-tab">
-                                            <!-- Header new task -->
-                                            <header class="btn-setright">
-                                                <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                                                    <li class="nav-item">
-                                                        <a class="btn btn-normal active listST" id="pills-ProcessDetail-task-tab" data-toggle="pill" href="#pills-ProcessDetail-task" role="tab" aria-controls="pills-ProcessDetail-task" aria-selected="true">
-                                                            <span>Task<span class="headerMobile-point">...</span> <span class="headerMobile-text">details</span></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </header>
-                                            <div class="tab-content tab-body" id="pills-tabContent">
-                                                <!-- Task DETAIL -->
-                                                <div class="tab-pane fade show active ST" id="pills-ProcessDetail-task" role="tabpanel" aria-labelledby="pills-ProcessDetail-task-tab">
-                                                    <!-- Task title -->
-                                                    <div class="form-group row form-line">
-                                                        <label class="col-sm-3 col-form-label">Task title</label>
-                                                        <div class="col-sm-9">
-                                                            <input class="form-control form-control-sm inputvalidate" type="text" id="task_title_adds" name="task_title_adds" >
-                                                            <p class="text-error">Text is required</p>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Descri -->
-                                                    <div class="form-group row form-line">
-                                                        <label for="Processtitle" class="col-sm-3 col-form-label">Description</label>
-                                                        <div class="col-sm-9">
-                                                            <textarea style="font-size: 12px;" class="form-control" id="task_description_adds" rows="5" placeholder="Provide detailed instructions on how to use this process (optional). Instructions will be available to all process participants"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <!-- started date -->
-                                                    <div class="form-group row form-line">
-                                                        <label class="col-sm-3 col-form-label">Started date</label>
-                                                        <div class="col-sm-9">
-                                                            <input class="form-control form-control-sm  w-100" id="pjt_starteddate_adds" type="text" data-language="en" placeholder="Set started date"/>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Due date -->
-                                                    <div class="form-group row form-line">
-                                                        <label class="col-sm-3 col-form-label">Due date</label>
-                                                        <div class="col-sm-9">
-                                                            <input class="form-control form-control-sm  w-100" id="pjt_duedate_adds" type="text" data-language="en" placeholder="Set due date"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+             
                            
  
                             </div>
@@ -591,17 +542,75 @@ include 'appsystem/inc_config.php';
     <script src="assets/js/additem.js"></script>    
     <script src="assets/js/jquery-ui.min.js"></script>
     <script type="text/javascript">
-        $(function(){
-
-            $(".datepicker-set-start").datepicker();
-            $(".datepicker-set-end").datepicker({
-                dateFormat: 'yy-mm-dd',
-                minDate: ("<?php echo $pjt_starteddate?>"),
-            
-            });
+        $("#pj_process_start").datepicker({
+            dateFormat: 'yy-mm-dd',
+            defaultDate: new Date(),
+        
+            onSelect: function(dateStr) 
+            {         
+                $("#pj_process_deadline").val(dateStr);
+                $("#pj_process_deadline").datepicker("option",{ minDate: new Date(dateStr)})
+                // loop tdf number 
+                <?php 
+                    $sql_loop_tdf = "SELECT * FROM  project_task WHERE pj_id = $pj_id";
+                    $sql_loop_tdf_result = $conn->query($sql_loop_tdf);
+                    while ($sql_loop_tdf_query = mysqli_fetch_array($sql_loop_tdf_result,MYSQLI_ASSOC)) {
+                    $tdf_id       = $sql_loop_tdf_query["tdf_id"];
+                ?>
+                $(".pjt_duedate<?php echo $tdf_id;?>").datepicker("option",{ minDate: new Date(dateStr)})
+                <?php } ?>
+            }
         });
+
+        $('#pj_process_deadline').datepicker({
+            dateFormat: 'yy-mm-dd',
+            defaultDate: new Date(),
+            onSelect: function(dateStr) {
+                toDate = new Date(dateStr);
+                    // Converts date objects to appropriate strings
+                    fromDate = ConvertDateToShortDateString(fromDate);
+                    toDate = ConvertDateToShortDateString(toDate);
+            }
+        });
+        // loop set datepicker 
+        <?php 
+            $sql_loop_dpk = "SELECT * FROM  project_task WHERE pj_id = $pj_id";
+            $sql_loop_dpk_result = $conn->query($sql_loop_dpk);
+            while ($sql_loop_dpk_query = mysqli_fetch_array($sql_loop_dpk_result,MYSQLI_ASSOC)) {
+            $tdf_id       = $sql_loop_dpk_query["tdf_id"];
+        ?>
+        $(".pjt_duedate<?php echo $tdf_id;?>").datepicker({
+            dateFormat: 'yy-mm-dd',
+            defaultDate: new Date(),
+            onSelect: function(dateStr) {
+                toDate = new Date(dateStr);
+                    // Converts date objects to appropriate strings
+                    fromDate = ConvertDateToShortDateString(fromDate);
+                    toDate = ConvertDateToShortDateString(toDate);
+            }
+        });
+        <?php } ?>
+        
         $(document).ready(function(){
             $("#save").click(function(){
+                // for project 
+                var start = $("#pj_process_start").datepicker("getDate");
+                var end = $("#pj_process_deadline").datepicker("getDate");
+                var days = (end - start) / (1000 * 60 * 60 * 24);
+                $("#pj_diff_date").val(days);
+                // for task is array 
+                <?php
+                    $sql_diff_js = "SELECT * FROM  project_task WHERE pj_id = $pj_id";
+                    $sql_diff_js_result = $conn->query($sql_diff_js);
+                    while ($sql_diff_js_query = mysqli_fetch_array($sql_diff_js_result,MYSQLI_ASSOC)) {
+                        $tdf_id       = $sql_diff_js_query["tdf_id"];
+               
+                ?>
+                var start_<?php echo $tdf_id ;?> = $("#pj_process_start").datepicker("getDate");
+                var end_<?php echo $tdf_id ;?> = $(".pjt_duedate<?php echo $tdf_id; ?>").datepicker("getDate");
+                var day_<?php echo $tdf_id ;?> = (end_<?php echo $tdf_id ;?> - start_<?php echo $tdf_id ;?>) / (1000 * 60 * 60 * 24);
+                $(".pjt_diff_date<?php echo $tdf_id ;?>").val(day_<?php echo $tdf_id ;?>);
+                <?php } ?>
                 
                 var pj_id_post               = $("#pj_id_post").val(); // id tp_id
                 var pj_process_title         = $("#pj_process_title").val(); // name of project
@@ -610,6 +619,7 @@ include 'appsystem/inc_config.php';
                 var pj_instructions          = $("#pj_instructions").val();
                 var project_main_assign_user = $("#project_main_assign_user").val();
                 var color                    = $("#color").val();
+                var pj_diff_date             = $("#pj_diff_date").val();
                 // 
                 var task_title_adds          = $("#task_title_adds").val();
                 // variable for array update sql 
@@ -618,6 +628,7 @@ include 'appsystem/inc_config.php';
                 var task_description         = [];
                 var pjt_starteddate          = [];
                 var pjt_duedate              = [];
+                var pjt_diff_date            = [];
                 // variable for array insert sql 
                 var task_title_add           = []; //  get value for check value isset in save_project_add_task.php 
                 var task_description_add     = [];
@@ -638,6 +649,9 @@ include 'appsystem/inc_config.php';
                 }); 
                 $(":input[name='pjt_duedate[]']").each(function() {
                     pjt_duedate.push($( this ).val());
+                }); 
+                $(":input[name='pjt_diff_date[]']").each(function() {
+                    pjt_diff_date.push($( this ).val());
                 }); 
                 // 
                 $(":input[name='task_title_add[]']").each(function() {
@@ -661,6 +675,7 @@ include 'appsystem/inc_config.php';
                         pj_process_title:pj_process_title,
                         pj_process_start:pj_process_start,
                         pj_process_deadline:pj_process_deadline,
+                        pj_diff_date:pj_diff_date,
                         pj_instructions:pj_instructions,
                         project_main_assign_user:project_main_assign_user,
                         color:color,
@@ -669,6 +684,7 @@ include 'appsystem/inc_config.php';
                         task_description:task_description,
                         pjt_starteddate:pjt_starteddate,
                         pjt_duedate:pjt_duedate,
+                        pjt_diff_date:pjt_diff_date,
                         task_title_adds:task_title_adds,  //get value for check value isset in save_project_add_task.php 
                         task_title_add:task_title_add,
                         task_description_add:task_description_add,

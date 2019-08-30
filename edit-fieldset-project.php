@@ -184,13 +184,11 @@
                                     $sql_pre_result = $conn->query($sql_pre);
                                     $sql_pre_count = $sql_pre_result->num_rows;
                                     
-                                    $sql_check = " SELECT tdf_id FROM task_detail_fixed WHERE pt_id = '1'";
+                                    $sql_check = " SELECT tdf_id FROM project_task WHERE tdf_id AND pt_id = '1'  AND pj_id ='$ss_pj_id' ";
                                     $sql_check_command = $conn->query($sql_check);
                                     $sql_check_count = $sql_check_command->numrows;
                                     while($objcheck = mysqli_fetch_array($sql_check_command,MYSQLI_ASSOC)){
                                         $arr_check[]=$objcheck["tdf_id"];
-                            
-                            
                                     }
                                     while($sql_pre_result_query = mysqli_fetch_array($sql_pre_result,MYSQLI_ASSOC)){
                                         $tdf_name          = $sql_pre_result_query["tdf_name"];
@@ -215,6 +213,13 @@
                                     $sql_pro = "SELECT * FROM  task_detail_fixed WHERE pt_id = '2' ";
                                     $sql_pro_result = $conn->query($sql_pro);
                                     $sql_pro_count = $sql_pro_result->num_rows;
+
+                                    $sql_check_pro = " SELECT tdf_id FROM project_task WHERE tdf_id AND pt_id = '2'  AND pj_id ='$ss_pj_id' ";
+                                    $sql_check_pro_command = $conn->query($sql_check_pro);
+                                    $sql_check_count = $sql_check_pro_command->numrows;
+                                    while($objcheck_pro = mysqli_fetch_array($sql_check_pro_command,MYSQLI_ASSOC)){
+                                        $arr_check[]=$objcheck_pro["tdf_id"];
+                                    }
                                     while($sql_pro_result_query = mysqli_fetch_array($sql_pro_result,MYSQLI_ASSOC)){
                                         $tdf_id            = $sql_pro_result_query["tdf_id"];
                                         $tdf_name          = $sql_pro_result_query["tdf_name"];
@@ -222,7 +227,7 @@
                                 ?>
                                     <div class="inputGroup">
                                         <input id="<?php echo $tdf_element; ?>" name="<?php echo $tdf_element; ?>"
-                                            type="checkbox"/>
+                                            type="checkbox" <?php if(in_array($sql_pro_result_query["tdf_id"],$arr_check)){ echo 'checked'; }?>/>
                                         <label for="<?php echo $tdf_element; ?>"><?php echo $tdf_name; ?></label>
                                     </div>
                                     <?php } ?>
@@ -239,13 +244,19 @@
                                         $sql_post = "SELECT * FROM  task_detail_fixed WHERE pt_id = '3' ";
                                         $sql_post_result = $conn->query($sql_post);
                                         $sql_post_count = $sql_post_result->num_rows;
+                                        $sql_check_post = " SELECT tdf_id FROM project_task WHERE tdf_id AND pt_id = '3'  AND pj_id ='$ss_pj_id' ";
+                                        $sql_check_post_command = $conn->query($sql_check_post);
+                                        $sql_check_post_count = $sql_check_post_command->numrows;
+                                        while($objcheck_post = mysqli_fetch_array($sql_check_post_command,MYSQLI_ASSOC)){
+                                            $arr_check[]=$objcheck_post["tdf_id"];
+                                        }
                                         while($sql_post_result_query = mysqli_fetch_array($sql_post_result,MYSQLI_ASSOC)){
                                             $tdf_name          = $sql_post_result_query["tdf_name"];
                                             $tdf_element       = $sql_post_result_query["tdf_element"];
                                     ?>
                                     <div class="inputGroup">
                                         <input id="<?php echo $tdf_element; ?>" name="<?php echo $tdf_element; ?>"
-                                            type="checkbox" />
+                                            type="checkbox" <?php if(in_array($sql_post_result_query["tdf_id"],$arr_check)){ echo 'checked'; }?>/>
                                         <label for="<?php echo $tdf_element; ?>"><?php echo $tdf_name; ?></label>
                                     </div>
                                     <?php } ?>
@@ -321,8 +332,15 @@
                                                 $sql_pre_collapse_result = $conn->query($sql_pre_collapse);
                                                 $sql_pre_collapse_count = $sql_pre_collapse_result->num_rows;
                                                 while($sql_pre_collapse_result_query = mysqli_fetch_array($sql_pre_collapse_result,MYSQLI_ASSOC)){
+                                                    $tdf_id            = $sql_pre_collapse_result_query["tdf_id"];
                                                     $tdf_name          = $sql_pre_collapse_result_query["tdf_name"];
                                                     $tdf_element       = $sql_pre_collapse_result_query["tdf_element"];
+                                                    // ดึง data เก่ามาโชว์ 
+                                                    $SQL_detail = "SELECT * FROM project_task WHERE pj_id = $ss_pj_id AND pt_id = 1 AND tdf_id= $tdf_id ";
+                                                    $SQL_detail_query = mysqli_query($conn,$SQL_detail);
+                                                    $SQL_detail_result = mysqli_fetch_array($SQL_detail_query,MYSQLI_ASSOC);
+                                                    $pjt_duedate        = $SQL_detail_result["pjt_duedate"];
+                                                    $pjt_description  = $SQL_detail_result["pjt_description"];
                                             ?>
                                             <div class="padding-custom-for-header-cls bg-gainsboro margin-custom-for-header-cls"
                                                 data-toggle="collapse" data-target="#<?php echo $tdf_element; ?>_cls"
@@ -345,10 +363,10 @@
                                                 <label class="w-100 text-left">Dead Line</label>
                                                 <input type="text" autocomplete="off"
                                                     class="dateEnd_<?php echo $tdf_element;?> form-control form-control-sm w-100 bd-rd30"
-                                                    placeholder="Due date" name="task_duedatex">
+                                                    placeholder="Due date" name="task_duedatex" value="<?php echo $pjt_duedate;?>">
                                                 <label class="w-100 text-left">Detail</label>
                                                 <textarea cols="30" rows="10" class="form-control"
-                                                    id="js_task_detail"></textarea>
+                                                    id="js_task_detail"><?php echo $pjt_description;?></textarea>
                                             </div>
                                             <?php } ?>
                                         </div>
@@ -360,8 +378,16 @@
                                                 $sql_pre_collapse_result = $conn->query($sql_pre_collapse);
                                                 $sql_pre_collapse_count = $sql_pre_collapse_result->num_rows;
                                                 while($sql_pre_collapse_result_query = mysqli_fetch_array($sql_pre_collapse_result,MYSQLI_ASSOC)){
+                                                    $tdf_id            = $sql_pre_collapse_result_query["tdf_id"];
                                                     $tdf_name          = $sql_pre_collapse_result_query["tdf_name"];
                                                     $tdf_element       = $sql_pre_collapse_result_query["tdf_element"];
+
+                                                // ดึง data เก่ามาโชว์ 
+                                                $SQL_detail = "SELECT * FROM project_task WHERE pj_id = $ss_pj_id AND pt_id = 2 AND tdf_id= $tdf_id ";
+                                                $SQL_detail_query = mysqli_query($conn,$SQL_detail);
+                                                $SQL_detail_result = mysqli_fetch_array($SQL_detail_query,MYSQLI_ASSOC);
+                                                $pjt_duedate        = $SQL_detail_result["pjt_duedate"];
+                                                $pjt_description  = $SQL_detail_result["pjt_description"];
                                             ?>
                                             <div class="padding-custom-for-header-cls bg-gainsboro margin-custom-for-header-cls"
                                                 data-toggle="collapse" data-target="#<?php echo $tdf_element; ?>_cls"
@@ -374,7 +400,7 @@
                                                     <div class="w-10">:</div>
                                                     <div class="w-50">
                                                         <p class="<?php echo $tdf_element.'_val'; ?> mb-0"><i
-                                                                class="fas fa-times text-danger"></i></p>
+                                                                class="fas fa-exclamation text-danger"></i></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -385,10 +411,10 @@
                                                 <!-- <input type="date" class="form-control" id="js_task_duedate"> -->
                                                 <input type="text" autocomplete="off"
                                                     class="dateEnd_<?php echo $tdf_element;?> form-control form-control-sm w-100 bd-rd30"
-                                                     placeholder="Due date" name="task_duedatex">
+                                                     placeholder="Due date" name="task_duedatex" value="<?php echo $pjt_duedate;?>">
                                                 <label class="w-100 text-left">Detail</label>
                                                 <textarea cols="30" rows="10" class="form-control"
-                                                    id="js_task_detail"></textarea>
+                                                    id="js_task_detail"><?php echo $pjt_description;?></textarea>
                                             </div>
                                             <?php } ?>
                                         </div>
@@ -400,8 +426,15 @@
                                                 $sql_pre_collapse_result = $conn->query($sql_pre_collapse);
                                                 $sql_pre_collapse_count = $sql_pre_collapse_result->num_rows;
                                                 while($sql_pre_collapse_result_query = mysqli_fetch_array($sql_pre_collapse_result,MYSQLI_ASSOC)){
+                                                    $tdf_id            = $sql_pre_collapse_result_query["tdf_id"];
                                                     $tdf_name          = $sql_pre_collapse_result_query["tdf_name"];
                                                     $tdf_element       = $sql_pre_collapse_result_query["tdf_element"];
+                                                // ดึง data เก่ามาโชว์ 
+                                                $SQL_detail = "SELECT * FROM project_task WHERE pj_id = $ss_pj_id AND pt_id = 3 AND tdf_id= $tdf_id ";
+                                                $SQL_detail_query = mysqli_query($conn,$SQL_detail);
+                                                $SQL_detail_result = mysqli_fetch_array($SQL_detail_query,MYSQLI_ASSOC);
+                                                $pjt_duedate        = $SQL_detail_result["pjt_duedate"];
+                                                $pjt_description  = $SQL_detail_result["pjt_description"];    
                                             ?>
                                             <div class="padding-custom-for-header-cls bg-gainsboro margin-custom-for-header-cls"
                                                 data-toggle="collapse" data-target="#<?php echo $tdf_element; ?>_cls"
@@ -414,7 +447,7 @@
                                                     <div class="w-10">:</div>
                                                     <div class="w-50">
                                                         <p class="<?php echo $tdf_element.'_val'; ?> mb-0"><i
-                                                                class="fas fa-times text-danger"></i></p>
+                                                                class="fas fa-exclamation text-danger"></i></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -425,10 +458,10 @@
                                                 <!-- <input type="date" class="form-control" id="js_task_duedate"> -->
                                                 <input type="text" autocomplete="off"
                                                     class="dateEnd_<?php echo $tdf_element; ?> form-control form-control-sm w-100 bd-rd30"
-                                                     placeholder="Due date" name="task_duedatex">
+                                                     placeholder="Due date" name="task_duedatex" value="<?php echo $pjt_duedate;?>">
                                                 <label class="w-100 text-left">Detail</label>
                                                 <textarea cols="30" rows="10" class="form-control"
-                                                    id="js_task_detail"></textarea>
+                                                    id="js_task_detail"><?php echo $pjt_description;?></textarea>
                                             </div>
                                             <?php } ?>
                                         </div>
@@ -448,7 +481,7 @@
 
             </div>
         </div>
-        <!-- modal delete user -->
+        <!-- modal add task default -->
         <div class="modal fade" id="Model-add-task" tabindex="-1" role="dialog" aria-labelledby="Model-Deletebtn"
             aria-hidden="true">
             <div class="modal-dialog" role="document">

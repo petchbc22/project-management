@@ -233,7 +233,7 @@
                         <div class="box-normal-left" href="#"
                             style="text-decoration:none!important;color:cadetblue;">
                             <div class="img-medium" style="background: brown">
-                                <p><?php echo $firstCharacter;?></p>
+                                <i class="fas fa-tasks m-auto text-white"></i>
                             </div>
                             <div class="process-text-box">
                                 <a href="processdisplay.php?pj_id=<?php echo $pj_id;?>"><h3 class="text-f14"><?php echo $pj_process_title; ?></h3></a>

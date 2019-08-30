@@ -7,6 +7,7 @@ include 'appsystem/inc_config.php';
    $pj_process_title          = $_POST["pj_process_title"];
    $pj_process_start          = $_POST["pj_process_start"];
    $pj_process_deadline       = $_POST["pj_process_deadline"];
+   $pj_diff_date              = $_POST["pj_diff_date"];
    $pj_instructions           = $_POST["pj_instructions"];
    $project_main_assign_user  = $_POST["project_main_assign_user"];
    $color                     = $_POST["color"];
@@ -16,6 +17,7 @@ include 'appsystem/inc_config.php';
    $task_description          = $_POST["task_description"];
    $pjt_starteddate           = $_POST["pjt_starteddate"];
    $pjt_duedate               = $_POST["pjt_duedate"];
+   $pjt_diff_date             = $_POST["pjt_diff_date"];
    //  get value for check value isset in save_project_add_task.php 
    $task_title_adds           = $_POST["task_title_adds"];
    //  for new task
@@ -31,6 +33,7 @@ include 'appsystem/inc_config.php';
       pj_instructions      = '".$pj_instructions."' ,
       pj_process_start     = '".$pj_process_start."' ,
       pj_process_deadline  = '".$pj_process_deadline."' ,
+      pj_dayofwork         = '".$pj_diff_date."' ,
       color                = '".$color."' ,
       pj_complete          = '0',
       pj_status            = 'N'
@@ -45,12 +48,13 @@ include 'appsystem/inc_config.php';
             $task_description_clean = mysqli_real_escape_string($conn, $task_description[$count]);
             $pjt_starteddate_clean  = mysqli_real_escape_string($conn, $pjt_starteddate[$count]);
             $pjt_duedate_clean      = mysqli_real_escape_string($conn, $pjt_duedate[$count]);
-            
+            $pjt_diff_date_clean    = mysqli_real_escape_string($conn, $pjt_diff_date[$count]);
             $sql_update_old_task = "UPDATE project_task SET 
                pjt_title       = '".$task_title_clean."', 
                pjt_description = '".$task_description_clean."',
-               pjt_starteddate = '".$pjt_starteddate_clean."',
-               pjt_duedate     = '".$pjt_duedate_clean."'
+               pjt_starteddate = '".$pj_process_start."',
+               pjt_duedate     = '".$pjt_duedate_clean."',
+               pjt_dayofwork   = '".$pjt_diff_date_clean."'
                WHERE pjt_id = '".$pjt_id_post_post_clean."' ";
             $complete_update = mysqli_multi_query($conn, $sql_update_old_task);
          }
@@ -91,13 +95,13 @@ include 'appsystem/inc_config.php';
             $pjt_id_post_post_clean = mysqli_real_escape_string($conn, $pjt_id_post[$count]);
             $task_title_clean       = mysqli_real_escape_string($conn, $task_title[$count]);
             $task_description_clean = mysqli_real_escape_string($conn, $task_description[$count]);
-            $pjt_starteddate_clean  = mysqli_real_escape_string($conn, $pjt_starteddate[$count]);
+            // $pjt_starteddate_clean  = mysqli_real_escape_string($conn, $pjt_starteddate[$count]);
             $pjt_duedate_clean      = mysqli_real_escape_string($conn, $pjt_duedate[$count]);
             
             $sql_update_old_task = "UPDATE project_task SET 
                pjt_title       = '".$task_title_clean."', 
                pjt_description = '".$task_description_clean."',
-               pjt_starteddate = '".$pjt_starteddate_clean."',
+               pjt_starteddate = '".$pj_process_start."',
                pjt_duedate     = '".$pjt_duedate_clean."'
                WHERE pjt_id = '".$pjt_id_post_post_clean."' ";
             $complete_update = mysqli_multi_query($conn, $sql_update_old_task);

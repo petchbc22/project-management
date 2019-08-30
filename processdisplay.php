@@ -68,7 +68,7 @@ include 'appsystem/inc_config.php';
                   title: "Delete Task Completed",
                   type: "success"
               }).then(function() {
-                  window.location = "edit-project.php?pj_id='.$pj_id.'";
+                  window.location = "processdisplay.php?pj_id='.$pj_id.'";
               });
           }, 300);
           </script>'; 
@@ -81,7 +81,7 @@ include 'appsystem/inc_config.php';
                   title: "Delete Task uncompleted",
                   type: "success"
               }).then(function() {
-                  window.location = "edit-project.php?pj_id='.$pj_id.'";
+                  window.location = "processdisplay.php?pj_id='.$pj_id.'";
               });
           }, 300);
           </script>'; 
@@ -105,7 +105,8 @@ include 'appsystem/inc_config.php';
     $pj_user_ceate          = $SQL_project_RESULT["pj_user_ceate"];
     $pj_process_start       = $SQL_project_RESULT["pj_process_start"];
     $pj_process_deadline    = $SQL_project_RESULT["pj_process_deadline"];
-    $color                  = $SQL_project_RESULT["color"];
+    $pj_dayofwork           = $SQL_project_RESULT["pj_dayofwork"];
+
     // display template
     $SQL_template = "SELECT * FROM template WHERE tp_id = '$tp_id'  ";
     $SQL_template_QUERY = mysqli_query($conn,$SQL_template);
@@ -395,7 +396,7 @@ include 'appsystem/inc_config.php';
                                                                     ?
                                                                 </p>
                                                                 <div style="margin-top:12px;">
-                                                                    <a href="edit-project.php?pjt_id=<?php echo $pjt_id; ?>&delete_task=deletetask&pj_id=<?php echo $pj_id;?>"
+                                                                    <a href="processdisplay.php?pjt_id=<?php echo $pjt_id; ?>&delete_task=deletetask&pj_id=<?php echo $pj_id;?>"
                                                                         <button class="btn btn-delete"
                                                                         style="margin-right:5px;">
                                                                         Delete
@@ -429,37 +430,6 @@ include 'appsystem/inc_config.php';
                                                 <i class="fas fa-trash-alt"></i>
                                             </div>
                                         </button>
-                                        <!-- Approval ไม่แสดง-->
-                                        <button class="tablinks tab-button box-normal approvaldefault"
-                                            onclick="openItem(event, 'approval')">
-                                            <div class="box-one">
-                                                <div id="approval-icon" class="icon-medium-size-f16"
-                                                    style="color: #A3A3A3; background: #E8E8E8; border-radius: 20px; margin-right: 12px;">
-                                                    <i id="approval-i" class="fas fa-check"></i>
-                                                </div>
-                                                <div class="text-left">
-                                                    <h4 class="text-f14" style="color: #959595">New task</h4>
-                                                    <p class="text-sub" style="margin-top:4px;">No assignees</p>
-                                                </div>
-                                            </div>
-                                            <div class="icon-btn" onclick="deleteItem(this,'approval')">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </div>
-                                        </button>
-                                        <!-- Group ไม่แสดง-->
-                                        <button class="tablinks tab-button box-normal groupdefault"
-                                            onclick="openItem(event, 'group')">
-                                            <div class="box-one">
-                                                <i class="fas fa-folder"
-                                                    style="font-size: 38px; color:#E8E8E8; margin-right: 12px;"></i>
-                                                <div class="text-left">
-                                                    <h4 class="text-f14" style="color: #959595">New Group</h4>
-                                                </div>
-                                            </div>
-                                            <div class="link-ingroup" onclick="intogroup()">
-                                                2 items
-                                            </div>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -486,7 +456,7 @@ include 'appsystem/inc_config.php';
                                                         <div class="file-text">
                                                             <div>
                                                                 <div class="text-f14">Started Date Project</div>
-                                                                <div class="text-sub"><?php echo $pj_process_start ;?>
+                                                                <div class="text-sub text-f15"><?php echo $pj_process_start ;?>
                                                                 </div>
                                                             </div>
                                                             <div class="file-text-date">
@@ -501,7 +471,7 @@ include 'appsystem/inc_config.php';
                                                         <div class="file-text">
                                                             <div>
                                                                 <div class="text-f14">Due Date Project</div>
-                                                                <div class="text-sub">
+                                                                <div class="text-sub text-f15">
                                                                     <?php echo $pj_process_deadline ;?></div>
                                                             </div>
                                                             <div class="file-text-date">
@@ -516,7 +486,7 @@ include 'appsystem/inc_config.php';
                                                         <div class="file-text">
                                                             <div>
                                                                 <div class="text-f14">Status Project</div>
-                                                                <div class="text-sub">
+                                                                <div class="text-sub text-f15">
                                                                     <?php if ($pj_process_complete == 0){echo 'Incompleted';}else{ echo 'Completed';}  ;?>
                                                                 </div>
                                                             </div>
@@ -539,7 +509,7 @@ include 'appsystem/inc_config.php';
                                                                 $sql_querycountuse_count = $sql_querycountuse_result->num_rows;
                                                                 
                                                             ?>
-                                                                <label class="text-sub">
+                                                                <label class="text-sub text-f15">
                                                                     <?php echo $sql_querycountuse_count; ?> persons :
                                                                 </label>
                                                                 <?php 
@@ -556,7 +526,7 @@ include 'appsystem/inc_config.php';
                                                         
                                                             ?>
                                                                 <label
-                                                                    class="text-sub"><?php echo $pj_user_ceate_name.' '.$pj_user_ceate_lname;?>
+                                                                    class="text-sub text-f15"><?php echo $pj_user_ceate_name.' '.$pj_user_ceate_lname;?>
                                                                     , </label> <?php }?>
                                                                 <div class="text-sub"></div>
 
@@ -567,13 +537,13 @@ include 'appsystem/inc_config.php';
                                                     </div>
                                                     <div class="file-box mt-2">
                                                         <div class="icon-medium-size-f20" style="background-color: #f5f5f5; color: #2e9df0; margin: 0 12px;">
-                                                            <i class="fas fa-palette" style="color:<?php echo $color;?>"></i>
+                                                            <i class="fas fa-calendar-day text-warning"></i>
                                                         </div>
                                                         <div class="file-text">
                                                             <div>
-                                                                <div class="text-f14">Color Project</div>
-                                                                <div class="text-sub">
-                                                                    <?php echo $color; ?>
+                                                                <div class="text-f14">Duration of Project</div>
+                                                                <div class="text-sub text-f15">
+                                                                    <?php echo $pj_dayofwork; ?> day
                                                                 </div>
                                                             </div>
                                                             <div class="file-text-date">
@@ -600,6 +570,7 @@ include 'appsystem/inc_config.php';
                                     $pjt_starteddate   = $template_result_query_r["pjt_starteddate"];
                                     $pjt_duedate       = $template_result_query_r["pjt_duedate"];
                                     $pjt_complete      = $template_result_query_r["pjt_complete"];
+                                    $pjt_dayofwork     = $template_result_query_r["pjt_dayofwork"];  
                                 ?>
                                 <div id="task<?php echo $pjt_id;?>" class="tabcontent">
                                     <input type="hidden" id="pjt_id_post" name="pjt_id_post[]"
@@ -619,7 +590,7 @@ include 'appsystem/inc_config.php';
                                                         <div class="file-text">
                                                             <div>
                                                                 <div class="text-f14">Task title</div>
-                                                                <div class="text-sub"><?php echo $pjt_title ;?></div>
+                                                                <div class="text-sub text-f15"><?php echo $pjt_title ;?></div>
                                                             </div>
                                                             <div class="file-text-date">
                                                             </div>
@@ -633,7 +604,7 @@ include 'appsystem/inc_config.php';
                                                         <div class="file-text">
                                                             <div>
                                                                 <div class="text-f14">Description</div>
-                                                                <div class="text-sub"><?php echo $pjt_description ;?></div>
+                                                                <div class="text-sub text-f15"><?php echo $pjt_description ;?></div>
                                                             </div>
                                                             <div class="file-text-date">
                                                             </div>
@@ -648,7 +619,7 @@ include 'appsystem/inc_config.php';
                                                         <div class="file-text">
                                                             <div>
                                                                 <div class="text-f14">Started date</div>
-                                                                <div class="text-sub"><?php echo $pjt_starteddate ;?></div>
+                                                                <div class="text-sub text-f15"><?php echo $pjt_starteddate ;?></div>
                                                             </div>
                                                             <div class="file-text-date">
                                                             </div>
@@ -662,12 +633,27 @@ include 'appsystem/inc_config.php';
                                                         <div class="file-text">
                                                             <div>
                                                                 <div class="text-f14">Due date</div>
-                                                                <div class="text-sub"><?php echo $pjt_duedate ;?></div>
+                                                                <div class="text-sub text-f15"><?php echo $pjt_duedate ;?></div>
                                                             </div>
                                                             <div class="file-text-date">
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!-- dayof work -->
+                                                    <div class="file-box mt-2">
+                                                        <div class="icon-medium-size-f20" style="background-color: #f5f5f5; color: #2e9df0; margin: 0 12px;">
+                                                            <i class="fas fa-calendar-day text-warning"></i>
+                                                        </div>
+                                                        <div class="file-text">
+                                                            <div>
+                                                                <div class="text-f14">Duration of Task</div>
+                                                                <div class="text-sub text-f15"><?php echo $pjt_dayofwork ;?> day</div>
+                                                            </div>
+                                                            <div class="file-text-date">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
                                                     <?php 
                                                        $sql_assign_user_list = "SELECT * FROM project_assign_user WHERE pjt_id ='$pjt_id' AND pau_status ='N'";
                                                        $sql_assign_user_list_result = $conn->query($sql_assign_user_list);
@@ -680,7 +666,7 @@ include 'appsystem/inc_config.php';
                                                         <div class="file-text">
                                                             <div>
                                                                 <div class="text-f14">Assignment User</div>
-                                                                <div class="text-sub d-flex">
+                                                                <div class="text-sub d-flex text-f15">
                                                                 <?php if($sql_assign_user_list_count == 0){ ?>
                                                                     <p class="mb-0 pr-1">No Assignment</p>
                                                                 <?php 
@@ -720,7 +706,7 @@ include 'appsystem/inc_config.php';
                                                         <div class="file-text">
                                                             <div>
                                                                 <div class="text-f14">Status of Project Task</div>
-                                                                <div class="text-sub"><?php if($pjt_complete == 1){echo'pending';}else if($pjt_complete == 2){echo'Completed';}else{echo'Waiting Accept from USER';}?></div>
+                                                                <div class="text-sub text-f15"><?php if($pjt_complete == 1){echo'pending';}else if($pjt_complete == 2){echo'Completed';}else{echo'Waiting Accept from USER';}?></div>
                                                             </div>
                                                             <div class="file-text-date">
                                                             </div>
@@ -817,16 +803,6 @@ include 'appsystem/inc_config.php';
                                     <span><?php echo $pj_user_ceate_names.' '.$pj_user_ceate_lnames; ?></span>
                                 </div>
                             </div>
-                            <div class="properties-box">
-                                <label>Process starter</label>
-                                <div class="properties-content">
-                                    <div class="img-small" style="background: #B8E17D; margin-right: 4px;">
-                                        <p>J</p>
-                                    </div>
-                                    <span>Johny</span>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                     <input type="hidden" id="hdnCount" name="hdnCount">
