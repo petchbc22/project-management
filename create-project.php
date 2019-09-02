@@ -843,8 +843,8 @@
             $tdf_element = $sql_pre_collapse_vlmd_result_query["tdf_element"]; 
             ?>
             $('#<?php echo $tdf_element;?>_cls').change(function() {
-                if ($('#<?php echo $tdf_element;?>_cls').children().eq(3).val() != "" && $(
-                        '#<?php echo $tdf_element;?>_cls').children().eq(5).val() != "") {
+                if ($('#<?php echo $tdf_element;?>_cls').children().eq(4).val() != "" && $(
+                        '#<?php echo $tdf_element;?>_cls').children().eq(7).val() != "") {
                     $(".<?php echo $tdf_element;?>_val").html(
                         "<i class='fas fa-check text-success'></i>");
                 } else {

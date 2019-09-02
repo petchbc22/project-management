@@ -217,7 +217,7 @@
                         $SQL_TP_RESULT = mysqli_fetch_array($SQL_TP_QUERY,MYSQLI_ASSOC);
                         $tp_name = $SQL_TP_RESULT["tp_name"];
 
-                        $SQL_task = "SELECT * FROM project_task WHERE pj_id = '$pj_id'";
+                        $SQL_task = "SELECT * FROM project_task WHERE pj_id = '$pj_id' AND pjt_status = 'N' ";
                         $SQL_TASK_QUERY = mysqli_query($conn,$SQL_task);
                         $sql_task_count = $SQL_TASK_QUERY->num_rows;
                         $SQL_TASK_RESULT = mysqli_fetch_array($SQL_TASK_QUERY,MYSQLI_ASSOC);    
@@ -240,16 +240,8 @@
                                 <p class="text-sub">Created By : <?php echo $sql_list_name.' '.$sql_list_lname; ?></p>
                                 <div style="display: flex;">
                                     <div class="progress" style="height: 5px; margin:8px 12px 0 0; flex:3;">
-                                    <?php 
-                                    $sql_percentage = "SELECT * FROM project_task WHERE pj_id= '$pj_id' ";
-                                    $sql_percentage_result = $conn->query($sql_percentage);
-                                    while($sql_percentage_result_query = mysqli_fetch_array($sql_percentage_result,MYSQLI_ASSOC)){
-                                        $pjt_colorstatus = $sql_percentage_result_query["pjt_colorstatus"];
-                                    ?>
-                                       <div class="progress-bar late-process" role="progressbar" style="width: 25%;background-color:<?php echo $pjt_colorstatus; ?>"
+                                        <div class="progress-bar late-process" role="progressbar" style="width: 100%;background-color:<?php if($pj_complete == 0){echo 'gray';}else{echo'red';} ?>"
                                             aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                       
-                                    <?php } ?>
                                     </div>
                                     <p class="text-sub"><span><?php echo $sql_task_count ;?></span> task</p>
                                 </div>
@@ -265,10 +257,10 @@
                         <ul class="process in_cls p-0">
                             <?php 
                                 if($search_process == ""){
-                                    $sql_task_cls = "SELECT * FROM project_task WHERE pjt_complete = 0 AND pjt_status = 'N' AND pj_id = '$pj_id' ";
+                                    $sql_task_cls = "SELECT * FROM project_task WHERE  pjt_status = 'N' AND pj_id = '$pj_id' ";
                                 }
                                 else{
-                                    $sql_task_cls = "SELECT * FROM project_task WHERE pjt_title like '%$search_process%' and pjt_complete = 0 AND pjt_status = 'N'";
+                                    $sql_task_cls = "SELECT * FROM project_task WHERE pjt_title like '%$search_process%'  AND pjt_status = 'N'";
                                 }
                                 $sql_task_cls_result = $conn->query($sql_task_cls);
                                 $sql_task_cls_count = $sql_task_cls_result->num_rows;
@@ -278,6 +270,104 @@
                                     $pjt_starteddate  =    $sql_task_cls_result_query["pjt_starteddate"];
                                     $pjt_duedate      =    $sql_task_cls_result_query["pjt_duedate"];
                                     $firstCharacter         = $pjt_title[0];
+                            ?>
+                            <li class="box-normal pl-50">
+                                <a class="box-normal-left py-2" href="show-task-detail.php?pjt_id=<?php echo $pjt_id; ?>"
+                                    style="text-decoration:none!important;color:cadetblue;">
+                                    <div class="img-medium" style="background: #00a02b">
+                                        <p><?php echo $firstCharacter;?></p>
+                                    </div>
+                                    <div class="process-text-box">
+                                        <h3 class="text-f14">Task Name : <?php echo $pjt_title; ?></h3>
+                                        <div style="display: flex;width: 300px;">
+                                            <div class="progress" style="height: 5px; margin:8px 12px 0 0; flex:3;">
+                                                <div class="progress-bar late-process" role="progressbar" style="width: 100%;background-color:<?php if($pj_complete == 0){echo 'gray';}else{echo'red';} ?>"
+                                                    aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="text-right dateBox-process">
+                                    <p class="text-sub">Started : <?php echo $pjt_starteddate ;?></p>
+                                    <p class="text-sub">Due : <?php echo $pjt_duedate ;?></p>
+                               
+                                </div>
+                            </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                    <?php }} ?>
+                </ul>
+                <?php }  
+                ?>
+                <?php if($ss_acc_permission == 2 ){
+
+                    if($search_process == ""){
+                        $sql_user_show_pj = "SELECT * FROM vw_for_search WHERE acc_id = $ss_acc_id AND pau_status = 'N' GROUP BY pj_id";
+                    } else {
+                        $sql_user_show_pj = "SELECT * FROM vw_for_search WHERE pj_process_title like '%$search_process%' and pj_complete = 0 AND pau_status = 'N' GROUP BY pj_id";
+                    }
+                        $sql_user_show_pj_result = $conn->query($sql_user_show_pj);
+                        $sql_user_show_pj_count = $sql_user_show_pj_result->num_rows;
+                    
+
+                ?>
+                <div class="process-title">Project Name ( <?php echo $sql_user_show_pj_count; ?> )</div>
+                <ul class="process">
+                    <?php if($sql_user_show_pj_count == 0 ) { ?>
+                    <p class="text-center py-3 mb-0 text-sub">Result of Process not Found.</p>
+                    <?php 
+                    } else {
+                        while($sql_user_show_pj_result_query = mysqli_fetch_array($sql_user_show_pj_result,MYSQLI_ASSOC)){
+                            $pj_id              = $sql_user_show_pj_result_query["pj_id"];
+                            $pj_process_title   = $sql_user_show_pj_result_query["pj_process_title"];
+
+                            $SQL_TP = "SELECT * FROM project WHERE pj_id = '$pj_id'";
+                            $SQL_TP_QUERY = mysqli_query($conn,$SQL_TP);
+                            $SQL_TP_RESULT = mysqli_fetch_array($SQL_TP_QUERY,MYSQLI_ASSOC);
+                            $pj_process_start       = $SQL_TP_RESULT["pj_process_start"];
+                            $pj_process_deadline    = $SQL_TP_RESULT["pj_process_deadline"];
+                            $pj_user_ceate          = $SQL_TP_RESULT["pj_user_ceate"];
+
+                            $SQL_acc = "SELECT * FROM account WHERE acc_id = '$pj_user_ceate'";
+                            $SQL_acc_QUERY = mysqli_query($conn,$SQL_acc);
+                            $SQL_acc_RESULT = mysqli_fetch_array($SQL_acc_QUERY,MYSQLI_ASSOC);
+                            $acc_name       = $SQL_acc_RESULT["acc_name"];
+                            $acc_lname      = $SQL_acc_RESULT["acc_lastname"];
+                 
+                    ?>
+                    <li class="box-normal border-gainsboro"  data-toggle="collapse" data-target="#demo<?php echo $pj_id;?>" style="background-color: #f8f9fa!important;">
+                        <div class="box-normal-left" href="#"
+                            style="text-decoration:none!important;color:cadetblue;">
+                            <div class="img-medium" style="background: brown">
+                                <i class="fas fa-tasks m-auto text-white"></i>
+                            </div>
+                            <div class="process-text-box">
+                                <a href="processdisplay.php?pj_id=<?php echo $pj_id;?>"><h3 class="text-f14"><?php echo $pj_process_title; ?></h3></a>
+                                <p class="text-sub">Created By : <?php echo $acc_name.' '.$acc_lname; ?></p>
+                         
+                            </div>
+                          
+                        </div>
+                        
+                        <div class="text-right dateBox-process">
+                            <p class="text-sub">Started : <?php echo $pj_process_start ;?></p>
+                            <p class="text-sub">Due : <?php echo $pj_process_deadline ;?></p>
+                        </div>
+                        
+                    </li>
+                    <!-- <div style="height: 1px;width: 80%;background-color: gainsboro;margin: auto;margin: 10px auto;"></div> -->
+                    <div id="demo<?php echo $pj_id;?>" class="collapse show" style="border-bottom: 1px solid gainsboro;margin-bottom: 10px;">
+                        <ul class="process in_cls p-0">
+                            <?php 
+                                     $sql_user_show_pjt = "SELECT * FROM vw_assign_taskname WHERE pj_id = $pj_id AND pau_status = 'N' AND acc_id = $ss_acc_id";
+                                     $sql_user_show_pjt_result = $conn->query($sql_user_show_pjt);
+                                     $sql_user_show_pjt_count = $sql_user_show_pjt_result->num_rows;
+                                     while($sql_user_show_pjt_result_query = mysqli_fetch_array($sql_user_show_pjt_result,MYSQLI_ASSOC)){
+                                        $pjt_id             = $sql_user_show_pjt_result_query["pjt_id"];
+                                        $pjt_title          = $sql_user_show_pjt_result_query["pjt_title"];
+                                        $pjt_starteddate    = $sql_user_show_pjt_result_query["pjt_starteddate"];
+                                        $pjt_duedate        = $sql_user_show_pjt_result_query["pjt_duedate"];
                             ?>
                             <li class="box-normal pl-50">
                                 <a class="box-normal-left py-2" href="show-task-detail.php?pjt_id=<?php echo $pjt_id; ?>"
@@ -297,10 +387,9 @@
                             <?php } ?>
                         </ul>
                     </div>
-                    <?php }} ?>
+                    <?php }} } ?>
                 </ul>
-                <?php }  
-                ?>
+                   
             </div>
         </div>
     </div>

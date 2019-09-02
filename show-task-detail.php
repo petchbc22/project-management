@@ -312,8 +312,8 @@ if ($comfirm_pjt == "comfirm_pjt") {
                             </div>
                             <div class="file-text">
                                 <div>
-                                    <div class="text-f14">Project name</div>
-                                    <div class="text-sub text-f14"><a href="processdisplay.php?pj_id=<?php echo $pj_id; ?>"><?php echo $pj_process_title; ?></a></div>
+                                    <div class="text-sub text-f14">Project name</div>
+                                    <div class="text-f16"><a href="processdisplay.php?pj_id=<?php echo $pj_id; ?>"><?php echo $pj_process_title; ?></a></div>
                                 </div>
                                 <div class="file-text-date">
                                 </div>
@@ -330,10 +330,10 @@ if ($comfirm_pjt == "comfirm_pjt") {
                             </div>
                             <div class="file-text">
                                 <div>
-                                    <div class="text-f14">Assignment User</div>
-                                    <div class="text-sub d-flex">
+                                    <div class="text-sub text-f14">Assignment User</div>
+                                    <div class="d-flex">
                                     <?php if($sql_assign_user_list_count == 0){ ?>
-                                        <p class="mb-0 pr-1">No Assignment</p>
+                                        <p class="mb-0 pr-1 text-f16">No Assignment</p>
                                     <?php 
                                         } else {
 
@@ -348,7 +348,7 @@ if ($comfirm_pjt == "comfirm_pjt") {
                                             $pj_user_ceate_lname = $SQL_acc_creat_RESULT["acc_lastname"];
                                             $pj_user_ceate_img = $SQL_acc_creat_RESULT["acc_img"];
                                     ?>
-                                    <p class="mb-0 pr-1">
+                                    <p class="mb-0 pr-1 text-f16">
                                         <?php echo $pj_user_ceate_name.' '.$pj_user_ceate_lname;?>,
                                     </p>
                                     <?php } }?>
@@ -365,8 +365,8 @@ if ($comfirm_pjt == "comfirm_pjt") {
                             </div>
                             <div class="file-text">
                                 <div>
-                                    <div class="text-f14">Description</div>
-                                    <div class="text-sub"><?php echo $pjt_description ;?></div>
+                                    <div class="text-sub text-f14">Description</div>
+                                    <div class="text-f16"><?php echo $pjt_description ;?></div>
                                 </div>
                                 <div class="file-text-date">
                                 </div>
@@ -378,8 +378,8 @@ if ($comfirm_pjt == "comfirm_pjt") {
                             </div>
                             <div class="file-text">
                                 <div>
-                                    <div class="text-f14">Started date</div>
-                                    <div class="text-sub"><?php echo $pjt_starteddate ;?></div>
+                                    <div class="text-sub text-f14">Started date</div>
+                                    <div class="text-f16"><?php echo $pjt_starteddate ;?></div>
                                 </div>
                                 <div class="file-text-date">
                                 </div>
@@ -392,8 +392,8 @@ if ($comfirm_pjt == "comfirm_pjt") {
                             </div>
                             <div class="file-text">
                                 <div>
-                                    <div class="text-f14">Due date</div>
-                                    <div class="text-sub"><?php echo $pjt_duedate ;?></div>
+                                    <div class="text-sub text-f14">Due date</div>
+                                    <div class="text-f16"><?php echo $pjt_duedate ;?></div>
                                 </div>
                                 <div class="file-text-date">
                                 </div>
@@ -409,8 +409,8 @@ if ($comfirm_pjt == "comfirm_pjt") {
                             </div>
                             <div class="file-text">
                                 <div>
-                                    <div class="text-f14">Status of Project Task</div>
-                                    <div class="text-sub"><?php if($pjt_complete == 1){echo'Completed';}else{echo'Uncompleted';}?></div>
+                                    <div class="text-sub  text-f14">Status of Project Task</div>
+                                    <div class="text-f16"><?php if($pjt_complete == 1){echo'Completed';}else{echo'Uncompleted';}?></div>
                                 </div>
                                 <div class="file-text-date">
                                 </div>
