@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/sweetalert.css"> 
+    <link rel="stylesheet" href="assets/css/jquery-ui.css" rel="stylesheet">
     <script src="assets/js/sweetalert2@8.js"></script>
     <title>inprocess task</title>
 </head>
@@ -303,17 +304,7 @@
                                 <textarea id="pjt_description" name="pjt_description" cols="10" rows="2" class="form-control text-f14"><?php echo $pjt_description;?></textarea>
                             </div>
                         </div>
-                        <div class="d-flex pt-3">
-                            <div class="w-15 m-auto justify-content-start">
-                                <label class="text-f14">Started Date</label> 
-                            </div>
-                            <div class="w-5 m-auto ">
-                                :
-                            </div>
-                            <div class="w-75"> 
-                                <input type="text" class="form-control form-control-sm date-pic" autocomplete="off" data-timepicker="true" data-time-format="hh:ii:00" placeholder=" Date" value="<?php echo $pjt_starteddate;?>" id="pjt_starteddate" name="pjt_starteddate">           
-                            </div>
-                        </div>
+                        <input type="hidden" class="form-control form-control-sm date-pic" autocomplete="off" data-timepicker="true" data-time-format="hh:ii:00" placeholder=" Date" value="<?php echo $pjt_starteddate;?>" id="pjt_starteddate" name="pjt_starteddate">           
                         <div class="d-flex pt-3">
                             <div class="w-15 m-auto justify-content-start">
                                 <label class="text-f14">Due Date</label> 
@@ -612,8 +603,6 @@
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/chosen-js/chosen.jquery.min.js"></script>
-    <script src="node_modules/air-datepicker/dist/js/datepicker.min.js"></script>
-    <script src="node_modules/air-datepicker/dist/js/i18n/datepicker.en.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/Dropdown.js"></script>
     <script src="assets/js/form.js"></script>
@@ -624,11 +613,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/selectize.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.js"></script>
+    <script src="assets/js/jquery-ui.min.js"></script>
     <script>
-        $('.date-pic').datepicker({
-            language: 'en',
-            minDate: new Date() 
-        })
+        $('#pjt_duedate').datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: ("<?php echo $pjt_starteddate;?>"),
+
+        });
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })

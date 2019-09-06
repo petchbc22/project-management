@@ -194,9 +194,9 @@
                                         $tdf_name          = $sql_pre_result_query["tdf_name"];
                                         $tdf_element       = $sql_pre_result_query["tdf_element"];
                                 ?>
-                                    <div class="inputGroup">
+                                    <div class="inputGroup" <?php if(in_array($sql_pre_result_query["tdf_id"],$arr_check)){ echo 'style="display:none;"'; }?>>
                                         <input id="<?php echo $tdf_element; ?>" name="<?php echo $tdf_element; ?>"
-                                            type="checkbox"  <?php if(in_array($sql_pre_result_query["tdf_id"],$arr_check)){ echo 'checked'; }?> />
+                                            type="checkbox"/>
                                         <label for="<?php echo $tdf_element; ?>"><?php echo $tdf_name; ?></label>
                                     </div>
                                     <?php } ?>
@@ -225,9 +225,9 @@
                                         $tdf_name          = $sql_pro_result_query["tdf_name"];
                                         $tdf_element       = $sql_pro_result_query["tdf_element"];
                                 ?>
-                                    <div class="inputGroup">
+                                    <div class="inputGroup" <?php if(in_array($sql_pro_result_query["tdf_id"],$arr_check)){ echo 'style="display:none;"'; }?>>
                                         <input id="<?php echo $tdf_element; ?>" name="<?php echo $tdf_element; ?>"
-                                            type="checkbox" <?php if(in_array($sql_pro_result_query["tdf_id"],$arr_check)){ echo 'checked'; }?>/>
+                                            type="checkbox"/>
                                         <label for="<?php echo $tdf_element; ?>"><?php echo $tdf_name; ?></label>
                                     </div>
                                     <?php } ?>
@@ -254,9 +254,9 @@
                                             $tdf_name          = $sql_post_result_query["tdf_name"];
                                             $tdf_element       = $sql_post_result_query["tdf_element"];
                                     ?>
-                                    <div class="inputGroup">
+                                    <div class="inputGroup" <?php if(in_array($sql_post_result_query["tdf_id"],$arr_check)){ echo 'style="display:none;"'; }?>>
                                         <input id="<?php echo $tdf_element; ?>" name="<?php echo $tdf_element; ?>"
-                                            type="checkbox" <?php if(in_array($sql_post_result_query["tdf_id"],$arr_check)){ echo 'checked'; }?>/>
+                                            type="checkbox" />
                                         <label for="<?php echo $tdf_element; ?>"><?php echo $tdf_name; ?></label>
                                     </div>
                                     <?php } ?>

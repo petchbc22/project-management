@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 02, 2019 at 01:21 PM
+-- Generation Time: Sep 06, 2019 at 12:57 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.1.30
 
@@ -500,7 +500,17 @@ INSERT INTO `logfile` (`logfile_id`, `user`, `activity`, `time`) VALUES
 (371, 7, 'ออกจากระบบ', '2019-09-02 14:27:50'),
 (372, 13, 'เข้าสู่ระบบ', '2019-09-02 14:27:55'),
 (373, 13, 'ออกจากระบบ', '2019-09-02 16:35:52'),
-(374, 7, 'เข้าสู่ระบบ', '2019-09-02 16:35:55');
+(374, 7, 'เข้าสู่ระบบ', '2019-09-02 16:35:55'),
+(375, 7, 'เข้าสู่ระบบ', '2019-09-04 09:34:55'),
+(376, 7, 'เข้าสู่ระบบ', '2019-09-06 09:12:52'),
+(377, 7, 'ออกจากระบบ', '2019-09-06 09:51:11'),
+(378, 11, 'เข้าสู่ระบบ', '2019-09-06 09:51:20'),
+(379, 11, 'ออกจากระบบ', '2019-09-06 09:51:37'),
+(380, 1, 'เข้าสู่ระบบ', '2019-09-06 09:51:41'),
+(381, 1, 'ออกจากระบบ', '2019-09-06 09:51:51'),
+(382, 13, 'เข้าสู่ระบบ', '2019-09-06 09:51:55'),
+(383, 13, 'ออกจากระบบ', '2019-09-06 10:53:20'),
+(384, 7, 'เข้าสู่ระบบ', '2019-09-06 10:53:34');
 
 -- --------------------------------------------------------
 
@@ -578,8 +588,8 @@ CREATE TABLE `project` (
   `pj_process_title` varchar(50) NOT NULL,
   `pj_instructions` varchar(100) NOT NULL,
   `pj_customner` varchar(100) NOT NULL,
-  `pj_process_start` datetime NOT NULL,
-  `pj_process_deadline` datetime NOT NULL,
+  `pj_process_start` date NOT NULL,
+  `pj_process_deadline` date NOT NULL,
   `pj_dayofwork` varchar(50) NOT NULL,
   `color` varchar(10) NOT NULL,
   `pj_user_ceate` int(3) NOT NULL,
@@ -592,9 +602,10 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`pj_id`, `tp_id`, `pj_process_title`, `pj_instructions`, `pj_customner`, `pj_process_start`, `pj_process_deadline`, `pj_dayofwork`, `color`, `pj_user_ceate`, `pj_complete`, `pj_status`) VALUES
-(75, 0, ' ทดสอบ diffdate', '0', 'tyl co.ltd', '2019-09-25 00:00:00', '2019-09-25 00:00:00', '0', '#000000', 7, 0, 'N'),
-(76, 0, 'ไทยประกันชีวิต รางวัลแห่งความสำเร็จ', '0', 'บริษัทไทยประกันชีวิต', '2019-07-23 00:00:00', '2019-09-18 00:00:00', '57', '#000000', 7, 0, 'N'),
-(77, 0, 'หห', '0', 'หหห', '2019-09-04 00:00:00', '2019-09-28 00:00:00', '24', '0', 7, 0, 'N');
+(75, 0, ' ทดสอบ diffdate', '0', 'tyl co.ltd', '2019-09-17', '2019-09-28', '11', '#000000', 7, 0, 'N'),
+(76, 0, 'ไทยประกันชีวิต รางวัลแห่งความสำเร็จ', '0', 'บริษัทไทยประกันชีวิต', '2019-07-23', '2019-09-18', '57', '#000000', 7, 0, 'N'),
+(77, 0, 'หห', '0', 'หหห', '2019-09-04', '2019-09-28', '24', '0', 7, 0, 'N'),
+(78, 0, 'adadas', '0', 'sdsad', '2019-09-11', '2019-09-21', '10', '0', 7, 0, 'N');
 
 -- --------------------------------------------------------
 
@@ -615,14 +626,9 @@ CREATE TABLE `project_assign_user` (
 --
 
 INSERT INTO `project_assign_user` (`pau_id`, `pjt_id`, `acc_id`, `pau_reply`, `pau_status`) VALUES
-(69, 244, 13, 1, 'D'),
-(70, 248, 13, 1, 'N'),
-(71, 245, 13, 0, 'N'),
-(72, 244, 5, 0, 'D'),
-(73, 244, 13, 0, 'D'),
-(74, 244, 5, 0, 'N'),
-(75, 244, 12, 0, 'N'),
-(76, 244, 13, 0, 'N');
+(102, 244, 13, 0, 'N'),
+(103, 245, 13, 0, 'N'),
+(104, 244, 13, 1, 'N');
 
 -- --------------------------------------------------------
 
@@ -671,11 +677,26 @@ INSERT INTO `project_main_assign_user` (`pmau_id`, `pj_id`, `acc_id`, `pmau_stat
 (89, 75, 5, 'D'),
 (90, 75, 13, 'D'),
 (91, 76, 13, 'N'),
-(92, 75, 1, 'N'),
-(93, 75, 2, 'N'),
-(94, 75, 5, 'N'),
-(95, 75, 12, 'N'),
-(96, 75, 13, 'N');
+(92, 75, 1, 'D'),
+(93, 75, 2, 'D'),
+(94, 75, 5, 'D'),
+(95, 75, 12, 'D'),
+(96, 75, 13, 'D'),
+(97, 75, 1, 'D'),
+(98, 75, 2, 'D'),
+(99, 75, 5, 'D'),
+(100, 75, 12, 'D'),
+(101, 75, 13, 'D'),
+(102, 75, 1, 'D'),
+(103, 75, 2, 'D'),
+(104, 75, 5, 'D'),
+(105, 75, 12, 'D'),
+(106, 75, 13, 'D'),
+(107, 75, 1, 'N'),
+(108, 75, 2, 'N'),
+(109, 75, 5, 'N'),
+(110, 75, 12, 'N'),
+(111, 75, 13, 'N');
 
 -- --------------------------------------------------------
 
@@ -692,8 +713,8 @@ CREATE TABLE `project_task` (
   `pjt_description` varchar(200) NOT NULL,
   `pjt_colorstatus` varchar(10) NOT NULL,
   `pjt_complete` int(3) NOT NULL,
-  `pjt_starteddate` datetime NOT NULL,
-  `pjt_duedate` datetime NOT NULL,
+  `pjt_starteddate` date NOT NULL,
+  `pjt_duedate` date NOT NULL,
   `pjt_dayofwork` varchar(50) NOT NULL,
   `pjt_status` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -703,19 +724,21 @@ CREATE TABLE `project_task` (
 --
 
 INSERT INTO `project_task` (`pjt_id`, `pj_id`, `pt_id`, `tdf_id`, `pjt_title`, `pjt_description`, `pjt_colorstatus`, `pjt_complete`, `pjt_starteddate`, `pjt_duedate`, `pjt_dayofwork`, `pjt_status`) VALUES
-(244, 75, 1, 1, 'Casting Talent', 'ใหม่ดาวิกา , จอห์นวิญญู , ดาวขำมิน', '#ffdd00', 1, '2019-09-25 00:00:00', '2019-09-30 00:00:00', '5', 'N'),
-(245, 75, 1, 4, 'Storyboard', 'หหห', '#f75f5f', 0, '2019-09-25 00:00:00', '2019-09-25 00:00:00', '0', 'N'),
-(246, 75, 2, 8, 'Director', 'หกหก', '#f75f5f', 0, '2019-09-25 00:00:00', '2019-09-25 00:00:00', '0', 'N'),
-(247, 75, 3, 13, 'Editing', 'asd', '#f75f5f', 0, '2019-09-25 00:00:00', '2019-10-11 00:00:00', '16', 'N'),
-(248, 76, 1, 5, 'Script', 'ฟฟฟฟ', '#ffdd00', 1, '2019-07-23 00:00:00', '2019-08-29 00:00:00', '37', 'N'),
-(249, 76, 2, 6, 'Camera operator', 'ดกด', '#f75f5f', 0, '2019-07-23 00:00:00', '2019-08-31 00:00:00', '39', 'N'),
-(250, 76, 2, 8, 'Director', 'ดกหดหก', '#f75f5f', 0, '2019-07-23 00:00:00', '2019-09-09 00:00:00', '48', 'N'),
-(251, 76, 2, 9, 'Assistance Director', 'กดหหกด', '#f75f5f', 0, '2019-07-23 00:00:00', '2019-09-20 00:00:00', '59', 'N'),
-(252, 76, 2, 10, 'producer', 'กดกดกด', '#f75f5f', 0, '2019-07-23 00:00:00', '2019-08-22 00:00:00', '30', 'N'),
-(253, 76, 2, 11, 'staff', 'กดกดหก', '#f75f5f', 0, '2019-07-23 00:00:00', '2019-09-26 00:00:00', '65', 'N'),
-(254, 76, 2, 12, 'Gear', 'กหดหกด', '#f75f5f', 0, '2019-07-23 00:00:00', '2019-10-10 00:00:00', '79', 'N'),
-(255, 77, 1, 2, 'Location Survey Cost', 'แแแ', '#f75f5f', 0, '2019-09-04 00:00:00', '2019-09-12 00:00:00', '8', 'N'),
-(256, 77, 1, 4, 'Storyboard', 'กกก', '#f75f5f', 0, '2019-09-04 00:00:00', '2019-10-12 00:00:00', '38', 'N');
+(244, 75, 1, 1, 'Casting Talent', 'ใหม่ดาวิกา , จอห์นวิญญู , ดาวขำมิน', '#ffdd00', 1, '2019-09-17', '2019-10-25', '9', 'N'),
+(245, 75, 1, 4, 'Storyboard', 'หหห', '#f75f5f', 0, '2019-09-17', '2019-09-28', '11', 'N'),
+(246, 75, 2, 8, 'Director', 'หกหก', '#f75f5f', 0, '2019-09-17', '2019-09-30', '13', 'N'),
+(247, 75, 3, 13, 'Editing', 'asd', '#f75f5f', 0, '2019-09-17', '2019-10-25', '38', 'N'),
+(248, 76, 1, 5, 'Script', 'ฟฟฟฟ', '#ffdd00', 1, '2019-07-23', '2019-08-29', '37', 'N'),
+(249, 76, 2, 6, 'Camera operator', 'ดกด', '#f75f5f', 0, '2019-07-23', '2019-08-31', '39', 'N'),
+(250, 76, 2, 8, 'Director', 'ดกหดหก', '#f75f5f', 0, '2019-07-23', '2019-09-09', '48', 'N'),
+(251, 76, 2, 9, 'Assistance Director', 'กดหหกด', '#f75f5f', 0, '2019-07-23', '2019-09-20', '59', 'N'),
+(252, 76, 2, 10, 'producer', 'กดกดกด', '#f75f5f', 0, '2019-07-23', '2019-08-22', '30', 'N'),
+(253, 76, 2, 11, 'staff', 'กดกดหก', '#f75f5f', 0, '2019-07-23', '2019-09-26', '65', 'N'),
+(254, 76, 2, 12, 'Gear', 'กหดหกด', '#f75f5f', 0, '2019-07-23', '2019-10-10', '79', 'N'),
+(255, 77, 1, 2, 'Location Survey Cost', 'แแแ', '#f75f5f', 0, '2019-09-04', '2019-09-12', '8', 'N'),
+(256, 77, 1, 4, 'Storyboard', 'กกก', '#f75f5f', 0, '2019-09-04', '2019-10-12', '38', 'N'),
+(257, 78, 1, 1, 'Casting Talent', 'sadas', '#f75f5f', 0, '2019-09-11', '2019-09-27', '16', 'N'),
+(258, 78, 2, 12, 'Gear', 'xcxzzx', '#f75f5f', 0, '2019-09-11', '2019-10-25', '44', 'N');
 
 -- --------------------------------------------------------
 
@@ -931,8 +954,8 @@ CREATE TABLE `vw_assign_taskname` (
 `acc_id` int(3)
 ,`pjt_id` int(3)
 ,`pjt_title` varchar(50)
-,`pjt_starteddate` datetime
-,`pjt_duedate` datetime
+,`pjt_starteddate` date
+,`pjt_duedate` date
 ,`pjt_status` varchar(1)
 ,`pj_id` int(3)
 ,`color` varchar(10)
@@ -955,8 +978,8 @@ CREATE TABLE `vw_for_search` (
 ,`pjt_complete` int(3)
 ,`acc_id` int(3)
 ,`pau_status` varchar(1)
-,`pjt_starteddate` datetime
-,`pjt_duedate` datetime
+,`pjt_starteddate` date
+,`pjt_duedate` date
 );
 
 -- --------------------------------------------------------
@@ -1124,7 +1147,7 @@ ALTER TABLE `board_comments`
 -- AUTO_INCREMENT for table `logfile`
 --
 ALTER TABLE `logfile`
-  MODIFY `logfile_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=375;
+  MODIFY `logfile_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=385;
 
 --
 -- AUTO_INCREMENT for table `permission`
@@ -1154,25 +1177,25 @@ ALTER TABLE `production_type`
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `pj_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `pj_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `project_assign_user`
 --
 ALTER TABLE `project_assign_user`
-  MODIFY `pau_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `pau_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `project_main_assign_user`
 --
 ALTER TABLE `project_main_assign_user`
-  MODIFY `pmau_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `pmau_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `project_task`
 --
 ALTER TABLE `project_task`
-  MODIFY `pjt_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=257;
+  MODIFY `pjt_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=259;
 
 --
 -- AUTO_INCREMENT for table `task`

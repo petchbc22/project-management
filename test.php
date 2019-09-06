@@ -1,30 +1,15 @@
 <?php
-	header('Content-Type: application/json');
+  include 'appsystem/inc_config.php';
 
-	$serverName = "localhost";
-	$userName = "root";
-	$userPassword = "";
-	$dbName = "mydatabase";
+?>
+<form action="" method="POST">
+<input type="text" name="text">
+</form>
 
-	$conn = mysqli_connect($serverName,$userName,$userPassword,$dbName);
-
-	if ($_POST["ddl"] == 1) {
-		$nowdate = date("d-m-y", mktime(0, 0, 0, 7, 26, 2017));
-	}
-	else {
-		$nowdate = 0;
-	}
-	$sql = "INSERT INTO test_ajax (name ,lastname,ddl) 
-		VALUES ('".$_POST["name"]."','".$_POST["lastname"]."','$nowdate')";
-	$query = mysqli_query($conn,$sql);
-
-	if($query) {
-		echo json_encode(array('status' => '1','message'=> 'Record add successfully'));
-	}
-	else
-	{
-		echo json_encode(array('status' => '0','message'=> 'Error insert data!'));
-	}
-
-	mysqli_close($conn);
+<?php
+function array_is_unique($array) {
+	return array_unique($array) == $array;
+ }
+ $array = array("a", "a", "b", "c");
+echo array_is_unique($array) ? "unique" : "non-unique"; //"non-unique"
 ?>

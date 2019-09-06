@@ -324,7 +324,7 @@ include 'appsystem/inc_config.php';
                                                     <i class="fas fa-edit"></i>
                                                 </div>
                                                 <div class="add-text text-f14">
-                                                    edit task in fieldset
+                                                    add task in fieldset
                                                 </div>
                                             </button>
                                         </a>
@@ -482,7 +482,7 @@ include 'appsystem/inc_config.php';
                                                     <div class="form-group row form-line">
                                                         <label class="col-sm-3 col-form-label">Due date</label>
                                                         <div class="col-sm-9">
-                                                            <input class="pjt_duedate<?php echo $tdf_id;?> form-control form-control-sm  w-100" id="pjt_duedate" type="text" name="pjt_duedate[]"  value="<?php echo $pjt_duedate;?>"/>
+                                                            <input class="pjt_duedate<?php echo $tdf_id;?> form-control form-control-sm  w-100 js_pjt_duedate"  type="text" name="pjt_duedate[]"  value="<?php echo $pjt_duedate;?>"/>
                                                         </div>
                                                     </div>
                                                     <input type="hidden" class="pjt_diff_date<?php echo $tdf_id;?>" id="pjt_diff_date" name="pjt_diff_date[]">
@@ -557,6 +557,7 @@ include 'appsystem/inc_config.php';
                     while ($sql_loop_tdf_query = mysqli_fetch_array($sql_loop_tdf_result,MYSQLI_ASSOC)) {
                     $tdf_id       = $sql_loop_tdf_query["tdf_id"];
                 ?>
+                $(".pjt_duedate<?php echo $tdf_id;?>").val(dateStr);
                 $(".pjt_duedate<?php echo $tdf_id;?>").datepicker("option",{ minDate: new Date(dateStr)})
                 <?php } ?>
             }

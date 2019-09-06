@@ -293,11 +293,10 @@ if ($comfirm_pjt == "comfirm_pjt") {
                         <button class="btn" role="button" data-toggle="modal" data-target="#Model-confirm" disabled>
                             <i class="fas fa-check"></i><span id="Btnstartprocess-text"> Accept</span>
                         </button>
-              
-                    <?php } }else { ?>
-                       
-                    <?php }  ?>
-                  
+                <?php } 
+                    } else { } 
+                ?>  
+                
             </div>
         </header>
         <div class="content-body-headTitle90 box-inprocess">
