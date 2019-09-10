@@ -30,7 +30,7 @@
 
 <body id="create-project">
     <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
-        <a class="navbar-brand" href="Process.php">
+        <a class="navbar-brand" href="process.php">
             <i class="fas fa-home"></i>
         </a>
         <?php include 'component/text-nav.php';?>

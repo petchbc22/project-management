@@ -30,7 +30,7 @@
 <body>
     <!-- MENU -->
     <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
-        <a class="navbar-brand" href="Process.php">
+        <a class="navbar-brand" href="process.php">
             <i class="fas fa-home"></i>
         </a>
         <?php include 'component/text-nav.php';?>
@@ -152,7 +152,7 @@
             <div id="boxA">
                 <?php if($ss_acc_permission == 0 || $ss_acc_permission == 1){?>
                 <div class="process-title">Recently completed processes</div>
-                <ul class="process">
+                <ul class="process py-0">
                     <?php if($sql_project_complete_count == 0 ) { ?>
                     <p class="text-center py-3 mb-0 text-sub">not project competed</p>
                     <?php } else { ?>
@@ -169,7 +169,7 @@
                     <li class="box-normal" >
                         <a class="box-normal-left" href="processdisplay.php?pj_id=<?php echo $pj_id ;?>" style="text-decoration:none!important;color:cadetblue;">
                             <div class="img-medium" style="background: #B8E17D">
-                                <p><?php echo $firstCharacter; ?></p>
+                                <i class="fas fa-check m-auto text-white"></i>
                             </div>
                             <div class="process-text-box">
                                 <h3 class="text-f14">Project Name : <?php echo $pj_process_title; ?></h3>
@@ -240,6 +240,7 @@
                                 <p class="text-sub">Created By : <?php echo $sql_list_name.' '.$sql_list_lname; ?></p>
                                 <div style="display: flex;">
                                     <div class="progress" style="height: 5px; margin:8px 12px 0 0; flex:3;">
+                                        
                                         <div class="progress-bar late-process" role="progressbar" style="width: 100%;background-color:<?php if($pj_complete == 0){echo 'gray';}else{echo'red';} ?>"
                                             aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
@@ -269,7 +270,8 @@
                                     $pjt_title        =    $sql_task_cls_result_query["pjt_title"];
                                     $pjt_starteddate  =    $sql_task_cls_result_query["pjt_starteddate"];
                                     $pjt_duedate      =    $sql_task_cls_result_query["pjt_duedate"];
-                                    $firstCharacter         = $pjt_title[0];
+                                    $firstCharacter   =    $pjt_title[0];
+                                    $pjt_complete     =    $sql_task_cls_result_query["pjt_complete"];
                             ?>
                             <li class="box-normal pl-50">
                                 <a class="box-normal-left py-2" href="show-task-detail.php?pjt_id=<?php echo $pjt_id; ?>"
@@ -281,7 +283,7 @@
                                         <h3 class="text-f14">Task Name : <?php echo $pjt_title; ?></h3>
                                         <div style="display: flex;width: 300px;">
                                             <div class="progress" style="height: 5px; margin:8px 12px 0 0; flex:3;">
-                                                <div class="progress-bar late-process" role="progressbar" style="width: 100%;background-color:<?php if($pj_complete == 0){echo 'gray';}else{echo'red';} ?>"
+                                                <div class="progress-bar late-process" role="progressbar" style="width: 100%;background-color:<?php if($pjt_complete == 0){echo 'red';}else if ($pjt_complete == 1){echo'gray';}else{echo 'green';} ?>"
                                                     aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>

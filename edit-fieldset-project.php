@@ -18,7 +18,7 @@
     error_reporting (E_ALL ^ E_NOTICE);
     include 'appsystem/inc_config.php';
     $ss_pj_id = $_GET["pj_id"];
-    $selectddl = "";
+   
     //   displayprofile
     $SQL_Profile = "SELECT * FROM account WHERE acc_id = '$ss_acc_id'";
     $SQL_PROFILE_QUERY = mysqli_query($conn,$SQL_Profile);
@@ -33,7 +33,7 @@
     $SQL_pj_field_qr = mysqli_query($conn,$SQL_pj_field);
     $SQL_pj_field_rs = mysqli_fetch_array($SQL_pj_field_qr,MYSQLI_ASSOC);
 
-    $get_pj_process_title   = $SQL_pj_field_rs["pj_process_title"];
+    $get_pj_process_title       = $SQL_pj_field_rs["pj_process_title"];
     $get_pj_customner           = $SQL_pj_field_rs["pj_customner"];
     $get_pj_process_start       = $SQL_pj_field_rs["pj_process_start"];
     $get_pj_process_deadline    = $SQL_pj_field_rs["pj_process_deadline"];
@@ -41,7 +41,7 @@
 
 <body id="create-project">
     <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
-        <a class="navbar-brand" href="Process.php">
+        <a class="navbar-brand" href="process.php">
             <i class="fas fa-home"></i>
         </a>
         <?php include 'component/text-nav.php';?>
@@ -91,12 +91,6 @@
                     <p class="mb-0">from project : <?php echo $saaa;?></p>
                     <p class="mb-0">assign by : <?php echo $bbb;?></p>
                     <div class="pt-2 d-flex">
-                        <!-- <button class="btn btn-icon-link icon-edit mr-2" data-toggle="tooltip" data-placement="right" title="Click to Visit ProcessTask">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-icon-link icon-btn mr-2" data-toggle="tooltip" data-placement="right" title="Click to Reply to request ">
-                            <i class="fas fa-check"></i>
-                        </button> -->
 
                     </div>
 
@@ -128,7 +122,7 @@
                     <div class="col-lg-10 form-box">
                         <form role="form" action="show.php" method="post"
                             class="text-center p-4 text-center p-4 shadow-sm p-3 mb-5 bg-white rounded" id="myform">
-                            <h3>แก้ไขข้อมูล Production</h3>
+                            <h3>ระบุข้อมูล Production ที่คุณต้องการ</h3>
                             <div class="f1-steps">
                                 <div class="f1-progress">
                                     <div class="f1-progress-line w-16" data-number-of-steps="3"></div>
@@ -183,20 +177,22 @@
                                     $sql_pre = "SELECT * FROM  task_detail_fixed WHERE pt_id = '1' ";
                                     $sql_pre_result = $conn->query($sql_pre);
                                     $sql_pre_count = $sql_pre_result->num_rows;
-                                    
+
                                     $sql_check = " SELECT tdf_id FROM project_task WHERE tdf_id AND pt_id = '1'  AND pj_id ='$ss_pj_id' ";
                                     $sql_check_command = $conn->query($sql_check);
                                     $sql_check_count = $sql_check_command->numrows;
                                     while($objcheck = mysqli_fetch_array($sql_check_command,MYSQLI_ASSOC)){
                                         $arr_check[]=$objcheck["tdf_id"];
                                     }
+
                                     while($sql_pre_result_query = mysqli_fetch_array($sql_pre_result,MYSQLI_ASSOC)){
+                                        $tdf_id            = $sql_pre_result_query["tdf_id"];
                                         $tdf_name          = $sql_pre_result_query["tdf_name"];
                                         $tdf_element       = $sql_pre_result_query["tdf_element"];
                                 ?>
                                     <div class="inputGroup" <?php if(in_array($sql_pre_result_query["tdf_id"],$arr_check)){ echo 'style="display:none;"'; }?>>
                                         <input id="<?php echo $tdf_element; ?>" name="<?php echo $tdf_element; ?>"
-                                            type="checkbox"/>
+                                            type="checkbox" value="<?php echo $tdf_id ;?>"/>
                                         <label for="<?php echo $tdf_element; ?>"><?php echo $tdf_name; ?></label>
                                     </div>
                                     <?php } ?>
@@ -220,6 +216,7 @@
                                     while($objcheck_pro = mysqli_fetch_array($sql_check_pro_command,MYSQLI_ASSOC)){
                                         $arr_check[]=$objcheck_pro["tdf_id"];
                                     }
+
                                     while($sql_pro_result_query = mysqli_fetch_array($sql_pro_result,MYSQLI_ASSOC)){
                                         $tdf_id            = $sql_pro_result_query["tdf_id"];
                                         $tdf_name          = $sql_pro_result_query["tdf_name"];
@@ -227,7 +224,7 @@
                                 ?>
                                     <div class="inputGroup" <?php if(in_array($sql_pro_result_query["tdf_id"],$arr_check)){ echo 'style="display:none;"'; }?>>
                                         <input id="<?php echo $tdf_element; ?>" name="<?php echo $tdf_element; ?>"
-                                            type="checkbox"/>
+                                            type="checkbox" value="<?php echo $tdf_id; ?>"/>
                                         <label for="<?php echo $tdf_element; ?>"><?php echo $tdf_name; ?></label>
                                     </div>
                                     <?php } ?>
@@ -244,19 +241,22 @@
                                         $sql_post = "SELECT * FROM  task_detail_fixed WHERE pt_id = '3' ";
                                         $sql_post_result = $conn->query($sql_post);
                                         $sql_post_count = $sql_post_result->num_rows;
+
                                         $sql_check_post = " SELECT tdf_id FROM project_task WHERE tdf_id AND pt_id = '3'  AND pj_id ='$ss_pj_id' ";
                                         $sql_check_post_command = $conn->query($sql_check_post);
                                         $sql_check_post_count = $sql_check_post_command->numrows;
                                         while($objcheck_post = mysqli_fetch_array($sql_check_post_command,MYSQLI_ASSOC)){
                                             $arr_check[]=$objcheck_post["tdf_id"];
                                         }
+
                                         while($sql_post_result_query = mysqli_fetch_array($sql_post_result,MYSQLI_ASSOC)){
+                                            $tdf_id            = $sql_pro_result_query["tdf_id"];
                                             $tdf_name          = $sql_post_result_query["tdf_name"];
                                             $tdf_element       = $sql_post_result_query["tdf_element"];
                                     ?>
                                     <div class="inputGroup" <?php if(in_array($sql_post_result_query["tdf_id"],$arr_check)){ echo 'style="display:none;"'; }?>>
                                         <input id="<?php echo $tdf_element; ?>" name="<?php echo $tdf_element; ?>"
-                                            type="checkbox" />
+                                            type="checkbox" value="<?php echo $tdf_id;?>"/>
                                         <label for="<?php echo $tdf_element; ?>"><?php echo $tdf_name; ?></label>
                                     </div>
                                     <?php } ?>
@@ -280,7 +280,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <!-- pre prodution -->
-
+                                        <input type="hidden" id="ss_pj_id" value="<?php echo $ss_pj_id; ?>" name="ss_pj_id">
                                         <label class="w-100 text-left font-weight-bold">Info Project</label>
                                         <div
                                             class="form-group text-left border-gainsboro padding-custom-for-header-cls">
@@ -335,12 +335,6 @@
                                                     $tdf_id            = $sql_pre_collapse_result_query["tdf_id"];
                                                     $tdf_name          = $sql_pre_collapse_result_query["tdf_name"];
                                                     $tdf_element       = $sql_pre_collapse_result_query["tdf_element"];
-                                                    // ดึง data เก่ามาโชว์ 
-                                                    $SQL_detail = "SELECT * FROM project_task WHERE pj_id = $ss_pj_id AND pt_id = 1 AND tdf_id= $tdf_id ";
-                                                    $SQL_detail_query = mysqli_query($conn,$SQL_detail);
-                                                    $SQL_detail_result = mysqli_fetch_array($SQL_detail_query,MYSQLI_ASSOC);
-                                                    $pjt_duedate        = $SQL_detail_result["pjt_duedate"];
-                                                    $pjt_description  = $SQL_detail_result["pjt_description"];
                                             ?>
                                             <div class="padding-custom-for-header-cls bg-gainsboro margin-custom-for-header-cls"
                                                 data-toggle="collapse" data-target="#<?php echo $tdf_element; ?>_cls"
@@ -358,15 +352,18 @@
                                                 </div>
                                             </div>
                                             <div id="<?php echo $tdf_element; ?>_cls" class="collapse cls">
+                                             
+                                                <input type="hidden" id="js_tdf_id" value="<?php echo $tdf_id;?>">
                                                 <input type="hidden" id="js_task_name">
                                                 <input type="hidden" id="js_pt_id" value="1">
                                                 <label class="w-100 text-left">Dead Line</label>
                                                 <input type="text" autocomplete="off"
                                                     class="dateEnd_<?php echo $tdf_element;?> form-control form-control-sm w-100 bd-rd30"
-                                                    placeholder="Due date" name="task_duedatex" value="<?php echo $pjt_duedate;?>">
+                                                    placeholder="Due date" name="task_duedatex">
+                                                <input type="hidden" id="js_diffdate">
                                                 <label class="w-100 text-left">Detail</label>
                                                 <textarea cols="30" rows="10" class="form-control"
-                                                    id="js_task_detail"><?php echo $pjt_description;?></textarea>
+                                                    id="js_task_detail"></textarea>
                                             </div>
                                             <?php } ?>
                                         </div>
@@ -381,13 +378,6 @@
                                                     $tdf_id            = $sql_pre_collapse_result_query["tdf_id"];
                                                     $tdf_name          = $sql_pre_collapse_result_query["tdf_name"];
                                                     $tdf_element       = $sql_pre_collapse_result_query["tdf_element"];
-
-                                                // ดึง data เก่ามาโชว์ 
-                                                $SQL_detail = "SELECT * FROM project_task WHERE pj_id = $ss_pj_id AND pt_id = 2 AND tdf_id= $tdf_id ";
-                                                $SQL_detail_query = mysqli_query($conn,$SQL_detail);
-                                                $SQL_detail_result = mysqli_fetch_array($SQL_detail_query,MYSQLI_ASSOC);
-                                                $pjt_duedate        = $SQL_detail_result["pjt_duedate"];
-                                                $pjt_description  = $SQL_detail_result["pjt_description"];
                                             ?>
                                             <div class="padding-custom-for-header-cls bg-gainsboro margin-custom-for-header-cls"
                                                 data-toggle="collapse" data-target="#<?php echo $tdf_element; ?>_cls"
@@ -405,16 +395,18 @@
                                                 </div>
                                             </div>
                                             <div id="<?php echo $tdf_element; ?>_cls" class="collapse cls">
+                                                <input type="hidden" id="js_tdf_id" value="<?php echo $tdf_id;?>">
                                                 <input type="hidden" id="js_task_name">
                                                 <input type="hidden" id="js_pt_id" value="2">
                                                 <label class="w-100 text-left">Dead Line</label>
                                                 <!-- <input type="date" class="form-control" id="js_task_duedate"> -->
                                                 <input type="text" autocomplete="off"
                                                     class="dateEnd_<?php echo $tdf_element;?> form-control form-control-sm w-100 bd-rd30"
-                                                     placeholder="Due date" name="task_duedatex" value="<?php echo $pjt_duedate;?>">
+                                                     placeholder="Due date" name="task_duedatex">
+                                                <input type="hidden" id="js_diffdate">
                                                 <label class="w-100 text-left">Detail</label>
                                                 <textarea cols="30" rows="10" class="form-control"
-                                                    id="js_task_detail"><?php echo $pjt_description;?></textarea>
+                                                    id="js_task_detail"></textarea>
                                             </div>
                                             <?php } ?>
                                         </div>
@@ -426,15 +418,9 @@
                                                 $sql_pre_collapse_result = $conn->query($sql_pre_collapse);
                                                 $sql_pre_collapse_count = $sql_pre_collapse_result->num_rows;
                                                 while($sql_pre_collapse_result_query = mysqli_fetch_array($sql_pre_collapse_result,MYSQLI_ASSOC)){
-                                                    $tdf_id            = $sql_pre_collapse_result_query["tdf_id"];
+                                                    $tdf_id            = $sql_pre_collapse_result_query["tdf_id"]; 
                                                     $tdf_name          = $sql_pre_collapse_result_query["tdf_name"];
                                                     $tdf_element       = $sql_pre_collapse_result_query["tdf_element"];
-                                                // ดึง data เก่ามาโชว์ 
-                                                $SQL_detail = "SELECT * FROM project_task WHERE pj_id = $ss_pj_id AND pt_id = 3 AND tdf_id= $tdf_id ";
-                                                $SQL_detail_query = mysqli_query($conn,$SQL_detail);
-                                                $SQL_detail_result = mysqli_fetch_array($SQL_detail_query,MYSQLI_ASSOC);
-                                                $pjt_duedate        = $SQL_detail_result["pjt_duedate"];
-                                                $pjt_description  = $SQL_detail_result["pjt_description"];    
                                             ?>
                                             <div class="padding-custom-for-header-cls bg-gainsboro margin-custom-for-header-cls"
                                                 data-toggle="collapse" data-target="#<?php echo $tdf_element; ?>_cls"
@@ -452,16 +438,19 @@
                                                 </div>
                                             </div>
                                             <div id="<?php echo $tdf_element; ?>_cls" class="collapse cls">
+                                          
+                                                <input type="hidden" id="js_tdf_id" value="<?php echo $tdf_id;?>">
                                                 <input type="hidden" id="js_task_name">
                                                 <input type="hidden" id="js_pt_id" value="3">
                                                 <label class="w-100 text-left">Dead Line</label>
                                                 <!-- <input type="date" class="form-control" id="js_task_duedate"> -->
                                                 <input type="text" autocomplete="off"
                                                     class="dateEnd_<?php echo $tdf_element; ?> form-control form-control-sm w-100 bd-rd30"
-                                                     placeholder="Due date" name="task_duedatex" value="<?php echo $pjt_duedate;?>">
+                                                     placeholder="Due date" name="task_duedatex">
+                                                <input type="hidden" id="js_diffdate" class="diff_date_<?php echo $tdf_element; ?>">
                                                 <label class="w-100 text-left">Detail</label>
                                                 <textarea cols="30" rows="10" class="form-control"
-                                                    id="js_task_detail"><?php echo $pjt_description;?></textarea>
+                                                    id="js_task_detail"></textarea>
                                             </div>
                                             <?php } ?>
                                         </div>
@@ -481,7 +470,7 @@
 
             </div>
         </div>
-        <!-- modal add task default -->
+        <!-- modal delete user -->
         <div class="modal fade" id="Model-add-task" tabindex="-1" role="dialog" aria-labelledby="Model-Deletebtn"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -597,16 +586,35 @@
         $.backstretch("resize");
     });
     $('#save-ajax').click(function() {
+        // loop คำสั่ง diffdate ของ jquery ก่อน insert sql 
+        <?php
+            $sql_diff_js = "SELECT * FROM  task_detail_fixed";
+            $sql_diff_js_result = $conn->query($sql_diff_js);
+            while ($sql_diff_js_query = mysqli_fetch_array($sql_diff_js_result,MYSQLI_ASSOC)) {
+                $tdf_name       = $sql_diff_js_query["tdf_name"];
+                $tdf_element    = $sql_diff_js_query["tdf_element"]; 
+        ?>
+        var start_<?php echo $tdf_element ;?> = $("#pj_process_start").datepicker("getDate");
+        var end_<?php echo $tdf_element ;?> = $(".dateEnd_<?php echo $tdf_element; ?>").datepicker("getDate");
+        var day_<?php echo $tdf_element ;?> = (end_<?php echo $tdf_element ;?> - start_<?php echo $tdf_element ;?>) / (1000 * 60 * 60 * 24);
+        $(".diff_date_<?php echo $tdf_element ;?>").val(day_<?php echo $tdf_element ;?>);
+        <?php } ?>
 
-        var pj_name = $('#pj_name').val();
-        var pj_duedate = $('#pj_duedate').val();
-        var pj_customer = $("#pj_customer").val();
-        var pj_process_start = $("#pj_process_start").val(); 
-        var task_name = [];
-        var pt_id = [];
-        var task_duedate = [];
-        var task_detail = [];
+        var ss_pj_id            = $('#ss_pj_id').val();
+        var pj_name             = $('#pj_name').val();
+        var pj_duedate          = $('#pj_duedate').val();
+        var pj_customer         = $("#pj_customer").val();
+        var pj_process_start    = $("#pj_process_start").val(); 
+        var task_name           = [];
+        var tdf_id              = [];
+        var pt_id               = [];
+        var task_duedate        = [];
+        var diffdate            = [];
+        var task_detail         = [];
 
+        $(":input[name='tdf_id[]']").each(function() {
+            tdf_id.push($(this).val());
+        });
         $(":input[name='pt_id[]']").each(function() {
             pt_id.push($(this).val());
         });
@@ -616,20 +624,26 @@
         $(":input[name='task_duedate[]']").each(function() {
             task_duedate.push($(this).val());
         });
+        $(":input[name='diffdate[]']").each(function() {
+            diffdate.push($(this).val());
+        });
         $(":input[name='task_detail[]']").each(function() {
             task_detail.push($(this).val());
         });
         $.ajax({
-            url: "service/save-project.php",
+            url: "service/edit-infieldset-project.php",
             method: "POST",
             data: {
+                ss_pj_id:ss_pj_id,
                 pj_name: pj_name,
                 pj_customer:pj_customer,
                 pj_process_start:pj_process_start,
                 pj_duedate: pj_duedate,
                 task_name: task_name,
+                tdf_id: tdf_id,
                 pt_id: pt_id,
                 task_duedate: task_duedate,
+                diffdate:diffdate,
                 task_detail: task_detail
             },
             success: function(data) {
@@ -752,6 +766,10 @@
             if ($('#<?php echo $tdf_element;?>').prop("checked") == true) {
                 $("#main_<?php echo $tdf_element;?>").removeClass('d-none');
                 // เตรียมส่งค่าเข้า ajax ไป insert sql
+                // tdf_id
+                $("#<?php echo $tdf_element;?>_cls #js_tdf_id").attr('id', 'tdf_id');
+                $("#<?php echo $tdf_element;?>_cls #tdf_id").attr('name', 'tdf_id[]');
+
                 $("#<?php echo $tdf_element;?>_cls #js_pt_id").attr('id', 'pt_id');
                 $("#<?php echo $tdf_element;?>_cls #pt_id").attr('name', 'pt_id[]');
                 // task_name 
@@ -761,6 +779,10 @@
                 // task_duedate
                 $("#<?php echo $tdf_element;?>_cls #js_task_duedate").attr('id', 'task_duedate');
                 $("#<?php echo $tdf_element;?>_cls .dateEnd_<?php echo $tdf_element;?>").attr('name', 'task_duedate[]');
+                // diff date 
+                $("#<?php echo $tdf_element;?>_cls #js_diffdate").attr('id', 'diffdate');
+                $("#<?php echo $tdf_element;?>_cls #diffdate").attr('name', 'diffdate[]');
+                $("#<?php echo $tdf_element;?>_cls #diffdate").addClass('diff_date_<?php echo $tdf_element; ?>');
                 // task_detail
                 $("#<?php echo $tdf_element;?>_cls #js_task_detail").attr('id', 'task_detail');
                 $("#<?php echo $tdf_element;?>_cls #task_detail").attr('name', 'task_detail[]');
@@ -773,12 +795,18 @@
                 // taskname
                 $("#<?php echo $tdf_element;?>_cls #task_name").attr('id', 'js_task_name');
                 $("#<?php echo $tdf_element;?>_cls #js_task_name").attr('name', 'js_task_name');
+                // tdf_id
+                $("#<?php echo $tdf_element;?>_cls #tdf_id").attr('id', 'js_tdf_id');
+                $("#<?php echo $tdf_element;?>_cls #js_tdf_id").attr('name', 'js_pt_id');
                 // ptid
                 $("#<?php echo $tdf_element;?>_cls #pt_id").attr('id', 'js_pt_id');
                 $("#<?php echo $tdf_element;?>_cls #js_pt_id").attr('name', 'js_pt_id');
                 // taskduedate
                 $("#<?php echo $tdf_element;?>_cls #task_duedate").attr('id', 'js_task_duedate');
                 $("#<?php echo $tdf_element;?>_cls .dateEnd_<?php echo $tdf_element;?>").attr('name', 'js_task_duedate');
+                // diff date 
+                $("#<?php echo $tdf_element;?>_cls #diffdate").attr('id', 'js_diffdate');
+                $("#<?php echo $tdf_element;?>_cls #js_diffdate").attr('name', 'js_diffdate');
                 // taskdetail
                 $("#<?php echo $tdf_element;?>_cls #task_detail").attr('id', 'js_task_detail');
                 $("#<?php echo $tdf_element;?>_cls #js_task_detail").attr('name', 'js_task_detail');
@@ -833,8 +861,8 @@
             $tdf_element = $sql_pre_collapse_vlmd_result_query["tdf_element"]; 
             ?>
             $('#<?php echo $tdf_element;?>_cls').change(function() {
-                if ($('#<?php echo $tdf_element;?>_cls').children().eq(3).val() != "" && $(
-                        '#<?php echo $tdf_element;?>_cls').children().eq(5).val() != "") {
+                if ($('#<?php echo $tdf_element;?>_cls').children().eq(4).val() != "" && $(
+                        '#<?php echo $tdf_element;?>_cls').children().eq(7).val() != "") {
                     $(".<?php echo $tdf_element;?>_val").html(
                         "<i class='fas fa-check text-success'></i>");
                 } else {

@@ -32,13 +32,13 @@ if (mysqli_query($conn, $sql_updatetask)){
    
 
     if($query == TRUE){
-      echo 'Completed';
+      echo '1';
     }
   }
 }
 else
 {
-  echo 'completed';
+  echo '1';
 }
 mysqli_close($conn);
 

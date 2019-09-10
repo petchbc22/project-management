@@ -27,7 +27,7 @@ $acc_img  = $SQL_PROFILE_RESULT["acc_img"];
 <body>
     <!-- MENU -->
     <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
-        <a class="navbar-brand" href="Process.php">
+        <a class="navbar-brand" href="process.php">
             <i class="fas fa-home"></i>
         </a>
         <?php include 'component/text-nav.php';?>

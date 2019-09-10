@@ -137,7 +137,7 @@
 <body>
     <!-- MENU -->
     <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
-        <a class="navbar-brand" href="Process.php">
+        <a class="navbar-brand" href="process.php">
             <i class="fas fa-home"></i>
         </a>
         <?php include 'component/text-nav.php';?>
@@ -230,12 +230,15 @@
                 </div>
             </div>
             <div class="btn-setleft">
+                <a href="processdisplay.php?pj_id=<?php echo $pj_id;?>" class="not_underline">
+                    <button class="btn btn-green-bd">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </a>
                 <button class="btn btn-save" id="save">
                     <i class="fas fa-save"></i>
                 </button>
-                <button class="btn icon-btn">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
+                
             </div>
         </header>
         <div class="content-body-headTitle90 box-inprocess">
@@ -643,14 +646,26 @@
                             project_assign_user:project_assign_user
                         },                   
                         success: function(data) {
-                            setTimeout(function() {
-                                swal({
-                                    title: (data),
-                                    type: "success"
-                                }).then(function() {
-                                    window.location = "inprocesstask.php?pjt_id=<?php echo $pjt_id;?>";
-                                });
-                            }, 300);
+                            if(data == 1){
+                                setTimeout(function() {
+                                    swal({
+                                        title: ("แก้ไข Project Task สำเร็จ"),
+                                        type: "success"
+                                    }).then(function() {
+                                        window.location = "inprocesstask.php?pjt_id=<?php echo $pjt_id;?>";
+                                    });
+                                }, 300);
+                            }
+                            else{
+                                setTimeout(function() {
+                                    swal({
+                                        title: ("แก้ไข Project Task สำเร็จ"),
+                                        type: "success"
+                                    }).then(function() {
+                                        window.location = "inprocesstask.php?pjt_id=<?php echo $pjt_id;?>";
+                                    });
+                                }, 300);
+                            }
                        
                     }
                 });

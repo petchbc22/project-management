@@ -163,24 +163,58 @@ if ($comfirm_pjt == "comfirm_pjt") {
     if (mysqli_query($conn, $sql)) {
         $sqlproject_task = "UPDATE project_task SET pjt_colorstatus = '#ffdd00' ,pjt_complete = '1' WHERE pjt_id = '$pjt_id'";
         if (mysqli_query($conn, $sqlproject_task)) {
-        echo '<script>
-                setTimeout(function() {
-                    swal({
-                        title: "Comfirm Project Task Success !",
-                        type: "success"
-                    }).then(function() {
-                        window.location = "show-task-detail.php?pjt_id=' . $pjt_id . '";
-                    });
-                }, 300);
-            </script>';
+            $sql1 = "SELECT * FROM project_assign_user WHERE pjt_id = $pjt_id  ";
+            $sql1_query = $conn->query($sql1);
+            $sql1_count = $sql1_query->num_rows;
+            // นับการตอบกลับของผู้ที่ได้รับงาน
+            $sql2 = "SELECT * FROM project_assign_user WHERE pjt_id = $pjt_id AND pau_reply = 1  ";
+            $sql2_query = $conn->query($sql2);
+            $sql2_count = $sql2_query->num_rows;
+            if($sql1_count == $sql2_count){
+                $sql = "UPDATE project_task SET pjt_complete = '1' WHERE pjt_id = '$pjt_id'";
+                $query = mysqli_query($conn, $sql);
+                    echo '<script>
+                            setTimeout(function() {
+                                swal({
+                                    title: "Comfirm Project Task Success !",
+                                    type: "success"
+                                }).then(function() {
+                                    window.location = "show-task-detail.php?pjt_id=' . $pjt_id . '";
+                                });
+                            }, 300);
+                        </script>';
+
+            }else{
+                echo '<script>
+                    setTimeout(function() {
+                        swal({
+                            title: "Comfirm Project Task Success !",
+                            type: "success"
+                        }).then(function() {
+                            window.location = "show-task-detail.php?pjt_id=' . $pjt_id . '";
+                        });
+                    }, 300);
+                </script>';
+
+            }
+        // echo '<script>
+        //         setTimeout(function() {
+        //             swal({
+        //                 title: "Comfirm Project Task Success !",
+        //                 type: "success"
+        //             }).then(function() {
+        //                 window.location = "show-task-detail.php?pjt_id=' . $pjt_id . '";
+        //             });
+        //         }, 300);
+        //     </script>';
+        }   
     }
-}
 }
 ?>
 <body>
     <!-- MENU -->
     <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
-        <a class="navbar-brand" href="Process.php">
+        <a class="navbar-brand" href="process.php">
             <i class="fas fa-home"></i>
         </a>
         <?php include 'component/text-nav.php';?>
@@ -254,12 +288,16 @@ if ($comfirm_pjt == "comfirm_pjt") {
     
         <header class="head-title-h90 box-normal">
             <div class="box-flex-Templatetitle">
-                <?php if($pj_user_ceate == $ss_acc_id){ ?>
+                <?php if($pj_user_ceate == $ss_acc_id){ 
+                    if($pjt_complete == 1 || $pjt_complete == 2){ 
+                    ?>
+
                 <div class="pr-2 py-2">
                     <?php 
-                        if($pjt_complete == 1) {
+                        if($pjt_complete == 1 || $pjt_complete == 0) {
                     ?>
                     <button class="btn-check-app" id="curtainInput">
+                        <input type="hidden" id="pj_id" value="<?php echo $pj_id;?>" name="<?php echo $pj_id;?>">
                         <i class="far fa-check-circle cts-app" data-toggle="tooltip" data-placement="bottom" title="Click to Approve this Process Task"></i>
                     </button>
                     <?php } else { ?>
@@ -268,7 +306,7 @@ if ($comfirm_pjt == "comfirm_pjt") {
                     </button>
                     <?php } ?>
                 </div>
-                <?php } ?>
+                <?php  }} ?>
                 <div style="width: 80%">
                     <a href="#" class="link-intamplate">
                         <p class="text-sub">Process started by <?php echo $pj_user_ceate_name . ' ' . $pj_user_ceate_lname . ' When ' . $pjt_starteddate ?></p>
@@ -402,14 +440,16 @@ if ($comfirm_pjt == "comfirm_pjt") {
                             <div class="icon-medium-size-f20" style="background-color: #f5f5f5; color: #2e9df0; margin: 0 12px;">
                                 <?php if($pjt_complete == 0){ ?>
                                 <i class="far fa-times-circle text-danger"></i>
-                                <?php } else { ?>
+                                <?php } else if ($pjt_complete == 1){?>
+                                    <i class="fas fa-hourglass-end" id="task-i" style="color:#c5c101;"></i>
+                                <?php }else { ?>
                                 <i class="fas fa-check-circle text-success"></i>
                                 <?php } ?>
                             </div>
                             <div class="file-text">
                                 <div>
                                     <div class="text-sub  text-f14">Status of Project Task</div>
-                                    <div class="text-f16"><?php if($pjt_complete == 1){echo'Completed';}else{echo'Uncompleted';}?></div>
+                                    <div class="text-f16"><?php if($pjt_complete == 0){echo'ยังไม่ได้รับการตอบกลับจากผู้ได้รับมอบหมาย';}else if($pjt_complete == 1){echo 'กำลังดำเนินการ';}else{echo'สำเร็จ';}?></div>
                                 </div>
                                 <div class="file-text-date">
                                 </div>
@@ -605,6 +645,7 @@ if ($comfirm_pjt == "comfirm_pjt") {
                                     <?php }
                                 }  ?>
                             </div>
+                            <?php if ($pau_reply == 1) { ?>
                             <form class="comment-chat" action="#" method="post" enctype="multipart/form-data">
                                 <div class="inner-chat">
                                     <div class="file-input-wrapper">
@@ -621,6 +662,7 @@ if ($comfirm_pjt == "comfirm_pjt") {
                                     <button class="btn" id="sendButton">Add</button>
                                 </div>
                             </form>
+                            <?php } ?>
                         </div>
                         <!-- File -->
                         <div class="tab-pane fade" id="pills-file" role="tabpanel" aria-labelledby="pills-file-tab">
@@ -777,6 +819,7 @@ if ($comfirm_pjt == "comfirm_pjt") {
         $(document).ready(function() {
             $("#curtainInput").click(function() {
                 var pjt_complete    = '1';
+                var pj_id           = $('#pj_id').val();
                 var pjt_id          = $('#pjt_id').val();
              
                 console.log(pjt_complete,pjt_id);
@@ -785,7 +828,8 @@ if ($comfirm_pjt == "comfirm_pjt") {
                     type: "POST",
                     data: {
                         pjt_complete: pjt_complete,
-                        pjt_id:pjt_id
+                        pjt_id:pjt_id,
+                        pj_id:pj_id
                     },
                     success: function(data) {
                         setTimeout(function() {

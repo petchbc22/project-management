@@ -72,7 +72,7 @@ include 'appsystem/inc_config.php';
                }
             }
             if ($querys == TRUE){
-               echo 'Update Project Completed';
+               echo '1';
             }
          }
       }
@@ -133,7 +133,7 @@ include 'appsystem/inc_config.php';
                   }
                }
                if ($querys == TRUE){
-                  echo 'Update and add new Task Project Completed';
+                  echo '1';
                }
                //  echo 'Update and add new Task Project Completed';
              }

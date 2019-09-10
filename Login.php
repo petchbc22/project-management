@@ -18,9 +18,9 @@ session_start();
 $config_set = "local";
 if ($config_set == "local"){
     $config_server = "localhost";
-    $config_database = "vlog_management";
-    $config_username = "root";
-    $config_password = "";
+    $config_database = "buzzbkkc_vlog1";
+    $config_username = "buzzbkkc";
+    $config_password = "10klikes";
     $config_port = "" ;
 }
 

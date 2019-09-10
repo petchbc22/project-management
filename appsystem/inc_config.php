@@ -5,9 +5,9 @@
   $config_set = "local";
   if ($config_set == "local"){
       $config_server = "localhost";
-      $config_database = "vlog_management";
-      $config_username = "root";
-      $config_password = "";
+      $config_database = "buzzbkkc_vlog1";
+      $config_username = "buzzbkkc";
+      $config_password = "10klikes";
       $config_port = "" ;
   }
 
@@ -33,7 +33,7 @@
       $message = 'กรุณาเข้าสู่ระบบก่อน !!';
       echo "<SCRIPT type='text/javascript'> //not showing me this
       alert('$message');
-      window.location.replace(\"login.php\");
+      window.location.replace(\"Login.php\");
       </SCRIPT>";
       exit();
       }

@@ -7,5 +7,5 @@
 	$sql .= "('$acc_id','{$activity}',now())";
 	$result = $conn->query($sql);
 	session_destroy();
-	header("location:login.php");
+	header("location:Login.php");
 ?>

@@ -1167,6 +1167,22 @@ select{
         background: #59dd47;
     }
 }
+.btn-green-bd{
+    @extend .focus-noBoxShadow;
+    color: #4abc3b;
+    border: 1px solid #4abc3b;
+    border-radius: 50px;
+    font-size:14px;
+    &:hover{
+        color: white;
+        background: #59dd47;
+        border: 1px solid white;
+    }
+    &:active{
+        color: white;
+        background: #59dd47;
+    }
+}
 .btn-orn{
     @extend .focus-noBoxShadow;
     color: white;
@@ -2562,6 +2578,9 @@ strong {
   
   .form-group.has-error {
     color: #000;
+    input{
+        border: 1px solid red;
+    }
   }
   
   .bd-rd30 {
@@ -2600,4 +2619,7 @@ strong {
 }
 .pl-50{
     padding-left:50px !important;
+}
+.m-auto0{
+    margin: auto 0;
 }

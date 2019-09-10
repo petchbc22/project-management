@@ -5,7 +5,7 @@ mysqli_close($conn);
 $message = 'กรุณาเข้าสู่ระบบก่อน !!';
 echo "<SCRIPT type='text/javascript'> //not showing me this
 alert('$message');
-window.location.replace(\"index.php\");
+window.location.replace(\"Login.php\");
 </SCRIPT>";
  exit();
  }

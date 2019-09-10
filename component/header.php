@@ -1,10 +1,10 @@
   <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
-        <a class="navbar-brand" href="Process.php">
+        <a class="navbar-brand" href="process.php">
             <i class="fas fa-home"></i>
         </a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="Process.php">PROCESSES</a>
+                <a class="nav-link" href="process.php">PROCESSES</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="Template.php">TEMPLATES</a>

@@ -91,7 +91,7 @@ include 'appsystem/inc_config.php';
 <body>
     <!-- MENU -->
     <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
-        <a class="navbar-brand" href="Process.php">
+        <a class="navbar-brand" href="process.php">
             <i class="fas fa-home"></i>
         </a>
         <?php include 'component/text-nav.php';?>
@@ -165,13 +165,12 @@ include 'appsystem/inc_config.php';
     <div class="wrapper_main" style="position: relative">
         <header class="head-title-h90 box-normal">
             <div class="box-flex-Templatetitle">
-                <div>
+                <div class="m-auto0">
                     <div class="icon-medium-size-f20" style="color:#222; background: #ccc; margin-right: 12px;">
                         <i class="far fa-file-alt"></i>
                     </div>
                 </div>
-                <div style="width: 80%">
-                    <p class="text-sub">Started using template <a href="Intemplate.php?tp_id=<?php echo $tp_id ;?>" class="link-intamplate"><?php echo $tp_name; ?></a></p>
+                <div style="width: 80%" class="m-auto0">
                     <input type="hidden" name="pj_id_post" id="pj_id_post" value="<?php echo $pj_id;?>">
                     <input class="form-control form-control-sm input-Title" id="pj_process_title" name="pj_process_title" type="text" placeholder="Enter Template Title" onkeyup="titleTemplate()" value="<?php echo $pj_process_title;?>">
                     <input name="pj_id" id="pj_id" value="<?php echo $pj_id; ?>" type="hidden">
@@ -179,6 +178,11 @@ include 'appsystem/inc_config.php';
                 </div>
             </div>
             <div class="btn-setleft">
+                <a href="processdisplay.php?pj_id=<?php echo $pj_id;?>" class="not_underline">
+                    <button class="btn btn-green-bd">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </a>
                 <button class="btn btn-green" id="save">
                     Update Project
                 </button>
@@ -694,14 +698,29 @@ include 'appsystem/inc_config.php';
                     },
                     success:function(data){
                         // alert (data) ;
-                        setTimeout(function() {
-                            swal({
-                                title: (data),
-                                type: "success"
-                            }).then(function() {
-                                window.location = "edit-project.php?pj_id=<?php echo $pj_id;?>";
-                            });
-                        }, 300);
+
+                        if (data == 1) {
+                            setTimeout(function() {
+                                swal({
+                                    title: "แก้ไขโปรเจคสำเร็จ !",
+                                    type: "success"
+                                }).then(function() {
+                                    window.location = "edit-project.php?pj_id=<?php echo $pj_id;?>";
+                                });
+                            }, 300);
+                        } else {
+                            setTimeout(function() {
+                                swal({
+                                    title: "แก้ไขโปรเจคสำเร็จ !",
+                                    type: "success"
+                                }).then(function() {
+                                    window.location = "edit-project.php?pj_id=<?php echo $pj_id;?>";
+                                });
+                            }, 300);
+                        }
+
+
+                    
                            
                     }
                 });
